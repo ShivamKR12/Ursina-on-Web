@@ -8,6 +8,8 @@ if sys.version_info[:2] != (3, 13):
 # --- CUSTOM PATHS FOR YOUR WORKSPACE ---
 WASM_PYTHON_DIR = "/workspaces/Ursina-on-Web/python313_wasm/usr/local"
 PANDA_BUILT_DIR = "/workspaces/Ursina-on-Web/panda3d-webgl/built"
+# Absolute path to the 'ursina' folder inside your cloned repo
+URSINA_SOURCE_PATH = os.path.abspath("./ursina_src/ursina")
 
 # Python built for target
 PY_INCLUDE_DIR = WASM_PYTHON_DIR + "/include/python3.13"
@@ -288,15 +290,22 @@ Py_FrozenMain(int argc, char **argv)
 }
 """
 
-freezer.moduleSearchPath = [PANDA_BUILT_DIR, PY_STDLIB_DIR, PY_MODULE_DIR]
+# Add the parent of the ursina folder so 'import ursina' finds that directory
+freezer.moduleSearchPath = [
+    os.path.abspath("./ursina_src"), # Add the parent so 'ursina' is found as a package
+    PANDA_BUILT_DIR, 
+    PY_STDLIB_DIR, 
+    PY_MODULE_DIR
+]
 
 freezer.cenv = EmscriptenEnvironment()
 freezer.excludeModule('doctest')
 freezer.excludeModule('difflib')
 freezer.excludeModule('panda3d')
 
-# YOU MUST TELL THE FREEZER TO BUNDLE URSINA!
-freezer.addModule('ursina')
+# Tell the freezer to bundle ursina (it will find it in ursina_src now)
+freezer.addModule('ursina.*')
+freezer.addModule('pathlib')
 
 freezer.addModule('__main__', filename="main.py")
 

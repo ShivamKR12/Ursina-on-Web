@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ursina Web Editor</title>
+    
+    <!-- This line automatically redirects the browser to your built editor -->
+    <meta http-equiv="refresh" content="0; url=./panda3d-webgl/ursina/editor.html">
+    
+    <!-- JavaScript fallback in case the meta tag is blocked by the browser -->
+    <script>
+        window.location.replace("./panda3d-webgl/editor/editor.html");
+    </script>
+
+    <style>
+        body {
+            background-color: #181818;
+            color: #eeeeee;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        a {
+            color: #3399ff;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Loading Ursina Engine...</h2>
+    <p>If you are not redirected automatically, <a href="./panda3d-webgl/editor/editor.html">click here</a>.</p>
+</body>
+</html>

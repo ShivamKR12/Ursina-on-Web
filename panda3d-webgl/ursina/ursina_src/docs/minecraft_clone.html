@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<!--generated with sswg-->
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <title> ursina engine documentation</title>
+    <link rel="stylesheet" href="sswg.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+<div style="max-width:1200px; margin:auto;">
+<div style="text-align:left;">
+<br>
+<a href="index.html"><img src="ursina_logo_wireframe.webp" style="width:50px; height:auto; margin-right:10px;"/></a> <a href=" installation.html" class="button">Download</a> <a href=" documentation.html" class="button">Documentation</a> <a href=" api_reference_v8_2_0/index.html" class="button">API Reference</a> <a href=" samples.html" class="button">Samples</a> <a href=" asset_store.html" class="button">Asset Store</a> <a href=" donate.html" class="button">Donate</a><br>
+<h1 id="Minecraft Clone">
+Minecraft Clone
+</h1><a href="https://github.com/pokepetter/ursina/blob/master/samples/minecraft_clone.py">https://github.com/pokepetter/ursina/blob/master/samples/minecraft_clone.py</a><br>
+<br>
+<img src="icons/minecraft_clone.jpg"></img> <br>
+<code_block id="code_block_0"><button class="copy_code_button" onclick="copy_to_clipboard(code_block_0)">copy</button><green>''</green>'
+Disclaimer: This solution is <purple>not</purple> scalable <purple>for</purple> creating a big world.
+Creating a game like Minecraft requires specialized knowledge and is <purple>not</purple> as easy
+to make as it looks.
+
+You'll have to do some sort of chunking of the world and generate a combined mesh
+instead of separate blocks <purple>if</purple> you want it to run fast. You can use the Mesh class <purple>for</purple> this.
+
+You can then use blocks with colliders like in this example in a small area
+around the player so you can interact with the world.
+<green>''</green>'
+
+<purple>from</purple> ursina <purple>import</purple> *
+<purple>from</purple> ursina.prefabs.first_person_controller <purple>import</purple> FirstPersonController
+
+
+app = Ursina()
+
+<gray># Define a Voxel class.</gray>
+<gray># By setting the parent to scene and the model to <green>'cube'</green> it becomes a <yellow>3</yellow>d button.</gray>
+
+class Voxel(Button):
+&nbsp;&nbsp;&nbsp;&nbsp;<purple>def</purple> __init__(self, <olive>position</olive>=(<yellow>0</yellow>,<yellow>0</yellow>,<yellow>0</yellow>)):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;super().__init__(<olive>parent</olive>=scene,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<olive>position</olive>=position,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<olive>model</olive>=<green>'cube'</green>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;origin_<olive>y</olive>=.<yellow>5</yellow>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<olive>texture</olive>=<green>'white_cube'</green>,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<olive>color</olive>=color.hsv(<yellow>0</yellow>, <yellow>0</yellow>, random.uniform(.<yellow>9</yellow>, <yellow>1</yellow>.<yellow>0</yellow>)),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<olive>highlight_color</olive>=color.lime,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+
+<purple>for</purple> z in <blue>range</blue>(<yellow>8</yellow>):
+&nbsp;&nbsp;&nbsp;&nbsp;<purple>for</purple> x in <blue>range</blue>(<yellow>8</yellow>):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;voxel = Voxel(<olive>position</olive>=(x,<yellow>0</yellow>,z))
+
+
+<purple>def</purple> input(key):
+&nbsp;&nbsp;&nbsp;&nbsp;<purple>if</purple> key == <green>'left mouse down'</green>:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hit_info = raycast(camera.world_position, camera.forward, distance=<yellow>5</yellow>)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<purple>if</purple> hit_info.hit:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Voxel(<olive>position</olive>=hit_info.entity.position + hit_info.normal)
+&nbsp;&nbsp;&nbsp;&nbsp;<purple>if</purple> key == <green>'right mouse down'</green> and mouse.hovered_entity:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destroy(mouse.hovered_entity)
+
+
+player = FirstPersonController()
+app.run()
+
+</code_block>
+<script>
+function copy_to_clipboard(containerid) {
+    var range = document.createRange()
+    range.selectNode(containerid)
+    window.getSelection().removeAllRanges()
+    window.getSelection().addRange(range)
+    document.execCommand("copy")
+    window.getSelection().removeAllRanges()
+}
+</script>
+<br>
+<br>
+</body>
+</html>

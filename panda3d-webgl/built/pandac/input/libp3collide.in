@@ -1,0 +1,4068 @@
+1778491934
+3 3
+12 libp3collide 4 dlaq 12 panda3d.core 
+266
+278 20 get_collision_origin 0 6 544 36 CollisionSolid::get_collision_origin 0 1 1 0
+69
+virtual LPoint3 CollisionSolid::get_collision_origin(void) const = 0;
+
+279 12 set_tangible 0 4 544 28 CollisionSolid::set_tangible 0 1 2 295
+/**
+ * Sets the current state of the 'tangible' flag.  Set this true to make the
+ * solid tangible, so that a CollisionHandlerPusher will not allow another
+ * object to intersect it, or false to make it intangible, so that a
+ * CollisionHandlerPusher will ignore it except to throw an event.
+ */
+56
+inline void CollisionSolid::set_tangible(bool tangible);
+
+280 11 is_tangible 0 4 544 27 CollisionSolid::is_tangible 0 1 3 266
+/**
+ * Returns whether the solid is considered 'tangible' or not.  An intangible
+ * solid has no effect in a CollisionHandlerPusher (except to throw an event);
+ * it's useful for defining 'trigger' planes and spheres, that cause an effect
+ * when passed through.
+ */
+52
+inline bool CollisionSolid::is_tangible(void) const;
+
+281 20 set_effective_normal 0 4 544 36 CollisionSolid::set_effective_normal 0 1 4 388
+/**
+ * Records a false normal for this CollisionSolid that will be reported by the
+ * collision system with all collisions into it, instead of its actual normal.
+ * This is useful as a workaround for the problem of an avatar wanting to
+ * stand on a sloping ground; by storing a false normal, the ground appears to
+ * be perfectly level, and the avatar does not tend to slide down it.
+ */
+83
+inline void CollisionSolid::set_effective_normal(LVector3 const &effective_normal);
+
+282 22 clear_effective_normal 0 4 544 38 CollisionSolid::clear_effective_normal 0 1 5 71
+/**
+ * Removes the normal previously set by set_effective_normal().
+ */
+57
+inline void CollisionSolid::clear_effective_normal(void);
+
+283 20 has_effective_normal 0 4 544 36 CollisionSolid::has_effective_normal 0 1 6 98
+/**
+ * Returns true if a special normal was set by set_effective_normal(), false
+ * otherwise.
+ */
+61
+inline bool CollisionSolid::has_effective_normal(void) const;
+
+284 20 get_effective_normal 0 4 544 36 CollisionSolid::get_effective_normal 0 1 7 145
+/**
+ * Returns the normal that was set by set_effective_normal().  It is an error
+ * to call this unless has_effective_normal() returns true.
+ */
+72
+inline LVector3 const &CollisionSolid::get_effective_normal(void) const;
+
+285 28 set_respect_effective_normal 0 4 544 44 CollisionSolid::set_respect_effective_normal 0 1 8 296
+/**
+ * This is only meaningful for CollisionSolids that will be added to a
+ * traverser as colliders.  It is normally true, but if set false, it means
+ * that this particular solid does not care about the "effective" normal of
+ * other solids it meets, but rather always uses the true normal.
+ */
+88
+inline void CollisionSolid::set_respect_effective_normal(bool respect_effective_normal);
+
+286 28 get_respect_effective_normal 0 4 544 44 CollisionSolid::get_respect_effective_normal 0 1 9 46
+/**
+ * See set_respect_effective_normal().
+ */
+69
+inline bool CollisionSolid::get_respect_effective_normal(void) const;
+
+287 10 get_bounds 0 4 544 26 CollisionSolid::get_bounds 0 1 10 47
+/**
+ * Returns the solid's bounding volume.
+ */
+72
+ConstPointerTo< BoundingVolume > CollisionSolid::get_bounds(void) const;
+
+288 10 set_bounds 0 4 544 26 CollisionSolid::set_bounds 0 1 11 47
+/**
+ * Returns the solid's bounding volume.
+ */
+71
+void CollisionSolid::set_bounds(BoundingVolume const &bounding_volume);
+
+289 6 output 0 6 544 22 CollisionSolid::output 0 1 12 10
+/**
+ *
+ */
+61
+virtual void CollisionSolid::output(std::ostream &out) const;
+
+290 5 write 0 6 544 21 CollisionSolid::write 0 1 13 10
+/**
+ *
+ */
+82
+virtual void CollisionSolid::write(std::ostream &out, int indent_level = 0) const;
+
+291 14 get_class_type 0 4 544 30 CollisionSolid::get_class_type 0 1 14 0
+55
+static TypeHandle CollisionSolid::get_class_type(void);
+
+292 12 CollisionBox 0 260 550 26 CollisionBox::CollisionBox 0 2 15 16 256
+/**
+ * Create the Box by giving a Center and distances of each of the sides of
+ * box from the Center.
+ */
+
+/**
+ * Create the Box by Specifying the Diagonal Points
+ */
+
+/**
+ * Creates an invalid Box.  Only used when reading from a bam file.
+ */
+
+/**
+ *
+ */
+195
+inline explicit CollisionBox::CollisionBox(LPoint3 const &center, PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+inline explicit CollisionBox::CollisionBox(LPoint3 const &min, LPoint3 const &max);
+
+293 14 get_num_points 0 4 550 28 CollisionBox::get_num_points 0 1 17 68
+/**
+ * Returns 8: the number of vertices of a rectangular solid.
+ */
+52
+inline int CollisionBox::get_num_points(void) const;
+
+294 14 get_point_aabb 0 4 550 28 CollisionBox::get_point_aabb 0 1 18 67
+/**
+ * Returns the nth vertex of the Axis Aligned Bounding Box.
+ */
+57
+inline LPoint3 CollisionBox::get_point_aabb(int n) const;
+
+295 9 get_point 0 4 550 23 CollisionBox::get_point 0 1 19 45
+/**
+ * Returns the nth vertex of the OBB.
+ */
+52
+inline LPoint3 CollisionBox::get_point(int n) const;
+
+296 14 get_num_planes 0 4 550 28 CollisionBox::get_num_planes 0 1 20 65
+/**
+ * Returns 6: the number of faces of a rectangular solid.
+ */
+52
+inline int CollisionBox::get_num_planes(void) const;
+
+297 9 set_plane 0 4 550 23 CollisionBox::set_plane 0 1 21 96
+/**
+ * Creates the nth face of the rectangular solid.
+ *
+ * @deprecated Same as get_plane().
+ */
+51
+inline LPlane CollisionBox::set_plane(int n) const;
+
+298 9 get_plane 0 4 550 23 CollisionBox::get_plane 0 1 22 57
+/**
+ * Returns the nth face of the rectangular solid.
+ */
+51
+inline LPlane CollisionBox::get_plane(int n) const;
+
+299 10 set_center 0 4 550 24 CollisionBox::set_center 0 2 23 24 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+143
+inline void CollisionBox::set_center(LPoint3 const &center);
+inline void CollisionBox::set_center(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+300 10 get_center 0 4 550 24 CollisionBox::get_center 0 1 25 10
+/**
+ *
+ */
+59
+inline LPoint3 const &CollisionBox::get_center(void) const;
+
+301 7 get_min 0 4 550 21 CollisionBox::get_min 0 1 26 10
+/**
+ *
+ */
+56
+inline LPoint3 const &CollisionBox::get_min(void) const;
+
+302 7 get_max 0 4 550 21 CollisionBox::get_max 0 1 27 10
+/**
+ *
+ */
+56
+inline LPoint3 const &CollisionBox::get_max(void) const;
+
+303 14 get_dimensions 0 4 550 28 CollisionBox::get_dimensions 0 1 28 10
+/**
+ *
+ */
+57
+inline LVector3 CollisionBox::get_dimensions(void) const;
+
+304 14 get_class_type 0 4 550 28 CollisionBox::get_class_type 0 1 29 0
+53
+static TypeHandle CollisionBox::get_class_type(void);
+
+305 13 ~CollisionBox 0 516 550 27 CollisionBox::~CollisionBox 0 0 0
+34
+CollisionBox::~CollisionBox(void);
+
+306 16 CollisionCapsule 0 260 554 34 CollisionCapsule::CollisionCapsule 0 2 30 31 115
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ * Creates an invalid capsule.  Only used when reading from a bam file.
+ */
+
+/**
+ *
+ */
+276
+inline explicit CollisionCapsule::CollisionCapsule(LPoint3 const &a, LPoint3 const &db, PN_stdfloat radius);
+inline explicit CollisionCapsule::CollisionCapsule(PN_stdfloat ax, PN_stdfloat ay, PN_stdfloat az, PN_stdfloat bx, PN_stdfloat by, PN_stdfloat bz, PN_stdfloat radius);
+
+307 11 set_point_a 0 4 554 29 CollisionCapsule::set_point_a 0 2 32 33 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+148
+inline void CollisionCapsule::set_point_a(LPoint3 const &a);
+inline void CollisionCapsule::set_point_a(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+308 11 get_point_a 0 4 554 29 CollisionCapsule::get_point_a 0 1 34 10
+/**
+ *
+ */
+64
+inline LPoint3 const &CollisionCapsule::get_point_a(void) const;
+
+309 11 set_point_b 0 4 554 29 CollisionCapsule::set_point_b 0 2 35 36 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+148
+inline void CollisionCapsule::set_point_b(LPoint3 const &b);
+inline void CollisionCapsule::set_point_b(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+310 11 get_point_b 0 4 554 29 CollisionCapsule::get_point_b 0 1 37 10
+/**
+ *
+ */
+64
+inline LPoint3 const &CollisionCapsule::get_point_b(void) const;
+
+311 10 set_radius 0 4 554 28 CollisionCapsule::set_radius 0 1 38 10
+/**
+ *
+ */
+61
+inline void CollisionCapsule::set_radius(PN_stdfloat radius);
+
+312 10 get_radius 0 4 554 28 CollisionCapsule::get_radius 0 1 39 10
+/**
+ *
+ */
+60
+inline PN_stdfloat CollisionCapsule::get_radius(void) const;
+
+313 14 get_class_type 0 4 554 32 CollisionCapsule::get_class_type 0 1 40 0
+57
+static TypeHandle CollisionCapsule::get_class_type(void);
+
+314 17 ~CollisionCapsule 0 516 554 35 CollisionCapsule::~CollisionCapsule 0 0 0
+42
+CollisionCapsule::~CollisionCapsule(void);
+
+315 16 CollisionHandler 0 260 557 34 CollisionHandler::CollisionHandler 0 2 41 42 0
+130
+CollisionHandler::CollisionHandler(void) = default;
+inline CollisionHandler::CollisionHandler(CollisionHandler const &) = default;
+
+316 14 get_class_type 0 4 557 32 CollisionHandler::get_class_type 0 1 43 0
+57
+static TypeHandle CollisionHandler::get_class_type(void);
+
+317 17 ~CollisionHandler 0 516 557 35 CollisionHandler::~CollisionHandler 0 0 0
+42
+CollisionHandler::~CollisionHandler(void);
+
+318 13 CollisionNode 0 260 559 28 CollisionNode::CollisionNode 0 1 44 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+63
+explicit CollisionNode::CollisionNode(std::string const &name);
+
+319 16 set_collide_mask 0 4 559 31 CollisionNode::set_collide_mask 0 1 45 98
+/**
+ * Simultaneously sets both the "from" and "into" CollideMask values to the
+ * same thing.
+ */
+62
+inline void CollisionNode::set_collide_mask(CollideMask mask);
+
+320 21 set_from_collide_mask 0 4 559 36 CollisionNode::set_from_collide_mask 0 1 46 222
+/**
+ * Sets the "from" CollideMask.  In order for a collision to be detected from
+ * this object into another object, the intersection of this object's "from"
+ * mask and the other object's "into" mask must be nonzero.
+ */
+60
+void CollisionNode::set_from_collide_mask(CollideMask mask);
+
+321 21 set_into_collide_mask 0 4 559 36 CollisionNode::set_into_collide_mask 0 1 47 222
+/**
+ * Sets the "into" CollideMask.  In order for a collision to be detected from
+ * another object into this object, the intersection of the other object's
+ * "from" mask and this object's "into" mask must be nonzero.
+ */
+67
+inline void CollisionNode::set_into_collide_mask(CollideMask mask);
+
+322 21 get_from_collide_mask 0 4 559 36 CollisionNode::get_from_collide_mask 0 1 48 233
+/**
+ * Returns the current "from" CollideMask.  In order for a collision to be
+ * detected from this object into another object, the intersection of this
+ * object's "from" mask and the other object's "into" mask must be nonzero.
+ */
+68
+inline CollideMask CollisionNode::get_from_collide_mask(void) const;
+
+323 21 get_into_collide_mask 0 4 559 36 CollisionNode::get_into_collide_mask 0 1 49 233
+/**
+ * Returns the current "into" CollideMask.  In order for a collision to be
+ * detected from another object into this object, the intersection of the
+ * other object's "from" mask and this object's "into" mask must be nonzero.
+ */
+68
+inline CollideMask CollisionNode::get_into_collide_mask(void) const;
+
+324 12 clear_solids 0 4 559 27 CollisionNode::clear_solids 0 1 50 44
+/**
+ * Removes all solids from the node.
+ */
+46
+inline void CollisionNode::clear_solids(void);
+
+325 14 get_num_solids 0 4 559 29 CollisionNode::get_num_solids 0 1 51 10
+/**
+ *
+ */
+61
+inline std::size_t CollisionNode::get_num_solids(void) const;
+
+326 9 get_solid 0 4 559 24 CollisionNode::get_solid 0 1 52 10
+/**
+ *
+ */
+86
+inline ConstPointerTo< CollisionSolid > CollisionNode::get_solid(std::size_t n) const;
+
+327 12 modify_solid 0 4 559 27 CollisionNode::modify_solid 0 1 53 10
+/**
+ *
+ */
+78
+inline PointerTo< CollisionSolid > CollisionNode::modify_solid(std::size_t n);
+
+328 9 set_solid 0 4 559 24 CollisionNode::set_solid 0 1 54 55
+/**
+ * Replaces the solid with the indicated index.
+ */
+75
+inline void CollisionNode::set_solid(std::size_t n, CollisionSolid *solid);
+
+329 12 insert_solid 0 4 559 27 CollisionNode::insert_solid 0 1 55 77
+/**
+ * Inserts the indicated solid to the node at the indicated position.
+ */
+84
+inline void CollisionNode::insert_solid(std::size_t n, CollisionSolid const *solid);
+
+330 12 remove_solid 0 4 559 27 CollisionNode::remove_solid 0 1 56 110
+/**
+ * Removes the solid with the indicated index.  This will shift all subsequent
+ * indices down by one.
+ */
+55
+inline void CollisionNode::remove_solid(std::size_t n);
+
+331 9 add_solid 0 4 559 24 CollisionNode::add_solid 0 1 57 121
+/**
+ * Adds the indicated solid to the node.  Returns the index of the new solid
+ * within the node's list of solids.
+ */
+73
+inline std::size_t CollisionNode::add_solid(CollisionSolid const *solid);
+
+332 17 get_collider_sort 0 4 559 32 CollisionNode::get_collider_sort 0 1 58 114
+/**
+ * Returns the collider_sort value that has been set for this particular node.
+ * See set_collider_sort().
+ */
+56
+inline int CollisionNode::get_collider_sort(void) const;
+
+333 17 set_collider_sort 0 4 559 32 CollisionNode::set_collider_sort 0 1 59 594
+/**
+ * Sets a particular collider_sort value on this node.  This controls the
+ * order in which colliders (that is, "from nodes") are grouped together for
+ * the collision traversal.
+ *
+ * If there are 32 or fewer colliders added to any particular
+ * CollisionTraverser, then this value has no meaning.  It is only useful if
+ * there are many colliders, which may force the CollisionTraverser to make
+ * multiple passes through the data; in that case, it may be a useful
+ * optimization to group colliders that have similar bounding volumes together
+ * (by giving them similar sort values).
+ */
+55
+inline void CollisionNode::set_collider_sort(int sort);
+
+334 24 get_default_collide_mask 0 4 559 39 CollisionNode::get_default_collide_mask 0 1 60 80
+/**
+ * Returns the default into_collide_mask assigned to new CollisionNodes.
+ */
+72
+static inline CollideMask CollisionNode::get_default_collide_mask(void);
+
+335 9 get_owner 0 4 559 24 CollisionNode::get_owner 0 0 58
+/**
+ * Returns the custom pointer set via set_owner().
+ */
+47
+PyObject *CollisionNode::get_owner(void) const;
+
+336 9 set_owner 0 4 559 24 CollisionNode::set_owner 0 0 198
+/**
+ * Sets a custom pointer, together with an optional callback that will be
+ * called when the node is deleted.
+ *
+ * The owner or the callback will not be copied along with the CollisionNode.
+ */
+47
+void CollisionNode::set_owner(PyObject *owner);
+
+337 14 get_class_type 0 4 559 29 CollisionNode::get_class_type 0 1 61 0
+54
+static TypeHandle CollisionNode::get_class_type(void);
+
+338 18 CollisionTraverser 0 260 569 38 CollisionTraverser::CollisionTraverser 0 2 62 63 10
+/**
+ *
+ */
+168
+explicit CollisionTraverser::CollisionTraverser(std::string const &name = "ctrav");
+inline CollisionTraverser::CollisionTraverser(CollisionTraverser const &) = default;
+
+339 19 ~CollisionTraverser 0 516 569 39 CollisionTraverser::~CollisionTraverser 0 0 10
+/**
+ *
+ */
+46
+CollisionTraverser::~CollisionTraverser(void);
+
+340 26 set_respect_prev_transform 0 4 569 46 CollisionTraverser::set_respect_prev_transform 0 1 64 370
+/**
+ * Sets the flag that indicates whether the prev_transform stored on a node
+ * (as updated via set_fluid_pos(), etc.) is respected to calculate
+ * collisions.  If this is true, certain types of collision tests will be
+ * enhanced by the information about objects in motion.  If this is false,
+ * objects are always considered to be static.  The default is false.
+ */
+70
+inline void CollisionTraverser::set_respect_prev_transform(bool flag);
+
+341 26 get_respect_prev_transform 0 4 569 46 CollisionTraverser::get_respect_prev_transform 0 1 65 162
+/**
+ * Returns the flag that indicates whether the prev_transform stored on a node
+ * is respected to calculate collisions.  See set_respect_prev_transform().
+ */
+71
+inline bool CollisionTraverser::get_respect_prev_transform(void) const;
+
+342 12 add_collider 0 4 569 32 CollisionTraverser::add_collider 0 1 66 437
+/**
+ * Adds a new CollisionNode, representing an object that will be tested for
+ * collisions into other objects, along with the handler that will serve each
+ * detected collision.  Each CollisionNode may be served by only one handler
+ * at a time, but a given handler may serve many CollisionNodes.
+ *
+ * The handler that serves a particular node may be changed from time to time
+ * by calling add_collider() again on the same node.
+ */
+91
+void CollisionTraverser::add_collider(NodePath const &collider, CollisionHandler *handler);
+
+343 15 remove_collider 0 4 569 35 CollisionTraverser::remove_collider 0 1 67 263
+/**
+ * Removes the collider (and its associated handler) from the set of
+ * CollisionNodes that will be tested each frame for collisions into other
+ * objects.  Returns true if the definition was found and removed, false if it
+ * wasn't present to begin with.
+ */
+67
+bool CollisionTraverser::remove_collider(NodePath const &collider);
+
+344 12 has_collider 0 4 569 32 CollisionTraverser::has_collider 0 1 68 145
+/**
+ * Returns true if the indicated node is current in the set of nodes that will
+ * be tested each frame for collisions into other objects.
+ */
+70
+bool CollisionTraverser::has_collider(NodePath const &collider) const;
+
+345 17 get_num_colliders 0 4 569 37 CollisionTraverser::get_num_colliders 0 1 69 108
+/**
+ * Returns the number of CollisionNodes that have been added to the traverser
+ * via add_collider().
+ */
+54
+int CollisionTraverser::get_num_colliders(void) const;
+
+346 12 get_collider 0 4 569 32 CollisionTraverser::get_collider 0 1 70 100
+/**
+ * Returns the nth CollisionNode that has been added to the traverser via
+ * add_collider().
+ */
+55
+NodePath CollisionTraverser::get_collider(int n) const;
+
+347 11 get_handler 0 4 569 31 CollisionTraverser::get_handler 0 1 71 169
+/**
+ * Returns the handler that is currently assigned to serve the indicated
+ * collision node, or NULL if the node is not on the traverser's set of active
+ * nodes.
+ */
+82
+CollisionHandler *CollisionTraverser::get_handler(NodePath const &collider) const;
+
+348 15 clear_colliders 0 4 569 35 CollisionTraverser::clear_colliders 0 1 72 90
+/**
+ * Completely empties the set of collision nodes and their associated
+ * handlers.
+ */
+47
+void CollisionTraverser::clear_colliders(void);
+
+349 8 traverse 0 4 569 28 CollisionTraverser::traverse 0 1 73 247
+/**
+ * Perform the traversal. Begins at the indicated root and detects all
+ * collisions with any of its collider objects against nodes at or below the
+ * indicated root, calling the appropriate CollisionHandler for each detected
+ * collision.
+ */
+56
+void CollisionTraverser::traverse(NodePath const &root);
+
+350 6 output 0 4 569 26 CollisionTraverser::output 0 1 74 10
+/**
+ *
+ */
+57
+void CollisionTraverser::output(std::ostream &out) const;
+
+351 5 write 0 4 569 25 CollisionTraverser::write 0 1 75 10
+/**
+ *
+ */
+74
+void CollisionTraverser::write(std::ostream &out, int indent_level) const;
+
+352 12 __getstate__ 0 4 569 32 CollisionTraverser::__getstate__ 0 1 76 0
+55
+PyObject *CollisionTraverser::__getstate__(void) const;
+
+353 12 __setstate__ 0 4 569 32 CollisionTraverser::__setstate__ 0 1 77 0
+55
+void CollisionTraverser::__setstate__(PyObject *state);
+
+354 14 get_class_type 0 4 569 34 CollisionTraverser::get_class_type 0 1 78 0
+59
+static TypeHandle CollisionTraverser::get_class_type(void);
+
+355 8 get_from 0 4 572 24 CollisionEntry::get_from 0 1 79 104
+/**
+ * Returns the CollisionSolid pointer for the particular solid that triggered
+ * this collision.
+ */
+66
+inline CollisionSolid const *CollisionEntry::get_from(void) const;
+
+356 8 has_into 0 4 572 24 CollisionEntry::has_into 0 1 80 288
+/**
+ * Returns true if the "into" solid is, in fact, a CollisionSolid, and its
+ * pointer is known (in which case get_into() may be called to retrieve it).
+ * If this returns false, the collision was detected into a GeomNode, and
+ * there is no CollisionSolid pointer to be retrieved.
+ */
+49
+inline bool CollisionEntry::has_into(void) const;
+
+357 8 get_into 0 4 572 24 CollisionEntry::get_into 0 1 81 243
+/**
+ * Returns the CollisionSolid pointer for the particular solid was collided
+ * into.  This pointer might be NULL if the collision was into a piece of
+ * visible geometry, instead of a normal CollisionSolid collision; see
+ * has_into().
+ */
+66
+inline CollisionSolid const *CollisionEntry::get_into(void) const;
+
+358 13 get_from_node 0 4 572 29 CollisionEntry::get_from_node 0 1 82 182
+/**
+ * Returns the node that contains the CollisionSolid that triggered this
+ * collision.  This will be a node that has been added to a CollisionTraverser
+ * via add_collider().
+ */
+64
+inline CollisionNode *CollisionEntry::get_from_node(void) const;
+
+359 13 get_into_node 0 4 572 29 CollisionEntry::get_into_node 0 1 83 254
+/**
+ * Returns the node that contains the CollisionSolid that was collided into.
+ * This returns a PandaNode pointer instead of something more specific,
+ * because it might be either a CollisionNode or a GeomNode.
+ *
+ * Also see get_into_node_path().
+ */
+60
+inline PandaNode *CollisionEntry::get_into_node(void) const;
+
+360 18 get_from_node_path 0 4 572 34 CollisionEntry::get_from_node_path 0 1 84 224
+/**
+ * Returns the NodePath that represents the CollisionNode that contains the
+ * CollisionSolid that triggered this collision.  This will be a NodePath that
+ * has been added to a CollisionTraverser via add_collider().
+ */
+63
+inline NodePath CollisionEntry::get_from_node_path(void) const;
+
+361 18 get_into_node_path 0 4 572 34 CollisionEntry::get_into_node_path 0 1 85 338
+/**
+ * Returns the NodePath that represents the specific CollisionNode or GeomNode
+ * instance that was collided into.  This is the same node returned by
+ * get_into_node(), represented as a NodePath; however, it may be more useful
+ * because the NodePath can resolve the particular instance of the node, if
+ * there is more than one.
+ */
+63
+inline NodePath CollisionEntry::get_into_node_path(void) const;
+
+362 5 set_t 0 4 572 21 CollisionEntry::set_t 0 1 86 82
+/**
+ * Sets a time value for this collision relative to other CollisionEntries
+ */
+49
+inline void CollisionEntry::set_t(PN_stdfloat t);
+
+363 5 get_t 0 4 572 21 CollisionEntry::get_t 0 1 87 83
+/**
+ * returns time value for this collision relative to other CollisionEntries
+ */
+53
+inline PN_stdfloat CollisionEntry::get_t(void) const;
+
+364 8 collided 0 4 572 24 CollisionEntry::collided 0 1 88 188
+/**
+ * returns true if this represents an actual collision as opposed to a
+ * potential collision, needed for iterative collision resolution where path
+ * of collider changes mid-frame
+ */
+49
+inline bool CollisionEntry::collided(void) const;
+
+365 14 reset_collided 0 4 572 30 CollisionEntry::reset_collided 0 1 89 45
+/**
+ * prepare for another collision test
+ */
+49
+inline void CollisionEntry::reset_collided(void);
+
+366 26 get_respect_prev_transform 0 4 572 42 CollisionEntry::get_respect_prev_transform 0 1 90 203
+/**
+ * Returns true if the collision was detected by a CollisionTraverser whose
+ * respect_prev_transform flag was set true, meaning we should consider motion
+ * significant in evaluating collisions.
+ */
+67
+inline bool CollisionEntry::get_respect_prev_transform(void) const;
+
+367 17 set_surface_point 0 4 572 33 CollisionEntry::set_surface_point 0 1 91 178
+/**
+ * Stores the point, on the surface of the "into" object, at which a collision
+ * is detected.
+ *
+ * This point is specified in the coordinate space of the "into" object.
+ */
+68
+inline void CollisionEntry::set_surface_point(LPoint3 const &point);
+
+368 18 set_surface_normal 0 4 572 34 CollisionEntry::set_surface_normal 0 1 92 171
+/**
+ * Stores the surface normal of the "into" object at the point of the
+ * intersection.
+ *
+ * This normal is specified in the coordinate space of the "into" object.
+ */
+71
+inline void CollisionEntry::set_surface_normal(LVector3 const &normal);
+
+369 18 set_interior_point 0 4 572 34 CollisionEntry::set_interior_point 0 1 93 352
+/**
+ * Stores the point, within the interior of the "into" object, which
+ * represents the depth to which the "from" object has penetrated.  This can
+ * also be described as the intersection point on the surface of the "from"
+ * object (which is inside the "into" object).
+ *
+ * This point is specified in the coordinate space of the "into" object.
+ */
+69
+inline void CollisionEntry::set_interior_point(LPoint3 const &point);
+
+370 17 has_surface_point 0 4 572 33 CollisionEntry::has_surface_point 0 1 94 174
+/**
+ * Returns true if the surface point has been specified, false otherwise.  See
+ * get_surface_point().  Some types of collisions may not compute the surface
+ * point.
+ */
+58
+inline bool CollisionEntry::has_surface_point(void) const;
+
+371 18 has_surface_normal 0 4 572 34 CollisionEntry::has_surface_normal 0 1 95 176
+/**
+ * Returns true if the surface normal has been specified, false otherwise.
+ * See get_surface_normal().  Some types of collisions may not compute the
+ * surface normal.
+ */
+59
+inline bool CollisionEntry::has_surface_normal(void) const;
+
+372 18 has_interior_point 0 4 572 34 CollisionEntry::has_interior_point 0 1 96 176
+/**
+ * Returns true if the interior point has been specified, false otherwise.
+ * See get_interior_point().  Some types of collisions may not compute the
+ * interior point.
+ */
+59
+inline bool CollisionEntry::has_interior_point(void) const;
+
+373 15 set_contact_pos 0 4 572 31 CollisionEntry::set_contact_pos 0 1 97 190
+/**
+ * Stores the position of the "from" object at the instant at which the
+ * collision is first detected.
+ *
+ * This position is specified in the coordinate space of the "into" object.
+ */
+64
+inline void CollisionEntry::set_contact_pos(LPoint3 const &pos);
+
+374 18 set_contact_normal 0 4 572 34 CollisionEntry::set_contact_normal 0 1 98 154
+/**
+ * Stores the surface normal of the "into" object at the contact pos.
+ *
+ * This normal is specified in the coordinate space of the "into" object.
+ */
+71
+inline void CollisionEntry::set_contact_normal(LVector3 const &normal);
+
+375 15 has_contact_pos 0 4 572 31 CollisionEntry::has_contact_pos 0 1 99 172
+/**
+ * Returns true if the contact position has been specified, false otherwise.
+ * See get_contact_pos().  Some types of collisions may not compute the
+ * contact pos.
+ */
+56
+inline bool CollisionEntry::has_contact_pos(void) const;
+
+376 18 has_contact_normal 0 4 572 34 CollisionEntry::has_contact_normal 0 1 100 176
+/**
+ * Returns true if the contact normal has been specified, false otherwise.
+ * See get_contact_normal().  Some types of collisions may not compute the
+ * contact normal.
+ */
+59
+inline bool CollisionEntry::has_contact_normal(void) const;
+
+377 17 get_surface_point 0 4 572 33 CollisionEntry::get_surface_point 0 1 101 330
+/**
+ * Returns the point, on the surface of the "into" object, at which a
+ * collision is detected.  This can be thought of as the first point of
+ * intersection.  However the contact point is the actual first point of
+ * intersection.
+ *
+ * The point will be converted into whichever coordinate space the caller
+ * specifies.
+ */
+71
+LPoint3 CollisionEntry::get_surface_point(NodePath const &space) const;
+
+378 18 get_surface_normal 0 4 572 34 CollisionEntry::get_surface_normal 0 1 102 200
+/**
+ * Returns the surface normal of the "into" object at the point at which a
+ * collision is detected.
+ *
+ * The normal will be converted into whichever coordinate space the caller
+ * specifies.
+ */
+73
+LVector3 CollisionEntry::get_surface_normal(NodePath const &space) const;
+
+379 18 get_interior_point 0 4 572 34 CollisionEntry::get_interior_point 0 1 103 431
+/**
+ * Returns the point, within the interior of the "into" object, which
+ * represents the depth to which the "from" object has penetrated.  This can
+ * also be described as the intersection point on the surface of the "from"
+ * object (which is inside the "into" object).  It can be thought of as the
+ * deepest point of intersection.
+ *
+ * The point will be converted into whichever coordinate space the caller
+ * specifies.
+ */
+72
+LPoint3 CollisionEntry::get_interior_point(NodePath const &space) const;
+
+380 7 get_all 0 4 572 23 CollisionEntry::get_all 0 1 104 244
+/**
+ * Simultaneously transforms the surface point, surface normal, and interior
+ * point of the collision into the indicated coordinate space.
+ *
+ * Returns true if all three properties are available, or false if any one of
+ * them is not.
+ */
+133
+bool CollisionEntry::get_all(NodePath const &space, LPoint3 &surface_point, LVector3 &surface_normal, LPoint3 &interior_point) const;
+
+381 15 get_contact_pos 0 4 572 31 CollisionEntry::get_contact_pos 0 1 105 200
+/**
+ * Returns the position of the "from" object at the instant that a collision
+ * is first detected.
+ *
+ * The position will be converted into whichever coordinate space the caller
+ * specifies.
+ */
+69
+LPoint3 CollisionEntry::get_contact_pos(NodePath const &space) const;
+
+382 18 get_contact_normal 0 4 572 34 CollisionEntry::get_contact_normal 0 1 106 175
+/**
+ * Returns the surface normal of the "into" object at the contact position.
+ *
+ * The normal will be converted into whichever coordinate space the caller
+ * specifies.
+ */
+73
+LVector3 CollisionEntry::get_contact_normal(NodePath const &space) const;
+
+383 20 get_all_contact_info 0 4 572 36 CollisionEntry::get_all_contact_info 0 1 107 230
+/**
+ * Simultaneously transforms the contact position and contact normal of the
+ * collision into the indicated coordinate space.
+ *
+ * Returns true if all three properties are available, or false if any one of
+ * them is not.
+ */
+119
+bool CollisionEntry::get_all_contact_info(NodePath const &space, LPoint3 &contact_pos, LVector3 &contact_normal) const;
+
+384 6 output 0 4 572 22 CollisionEntry::output 0 1 108 10
+/**
+ *
+ */
+53
+void CollisionEntry::output(std::ostream &out) const;
+
+385 5 write 0 4 572 21 CollisionEntry::write 0 1 109 10
+/**
+ *
+ */
+74
+void CollisionEntry::write(std::ostream &out, int indent_level = 0) const;
+
+386 14 get_class_type 0 4 572 30 CollisionEntry::get_class_type 0 1 110 0
+55
+static TypeHandle CollisionEntry::get_class_type(void);
+
+387 15 ~CollisionEntry 0 516 572 31 CollisionEntry::~CollisionEntry 0 0 0
+38
+CollisionEntry::~CollisionEntry(void);
+
+388 14 CollisionPlane 0 260 578 30 CollisionPlane::CollisionPlane 0 2 111 112 168
+/**
+ * This is only for the convenience of CollisionPolygon.  Normally, you should
+ * not attempt to create an uninitialized CollisionPlane.
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+126
+inline CollisionPlane::CollisionPlane(LPlane const &plane);
+inline CollisionPlane::CollisionPlane(CollisionPlane const &copy);
+
+389 10 get_normal 0 4 578 26 CollisionPlane::get_normal 0 1 113 10
+/**
+ *
+ */
+55
+inline LVector3 CollisionPlane::get_normal(void) const;
+
+390 13 dist_to_plane 0 4 578 29 CollisionPlane::dist_to_plane 0 1 114 10
+/**
+ *
+ */
+77
+inline PN_stdfloat CollisionPlane::dist_to_plane(LPoint3 const &point) const;
+
+391 9 set_plane 0 4 578 25 CollisionPlane::set_plane 0 1 115 10
+/**
+ *
+ */
+59
+inline void CollisionPlane::set_plane(LPlane const &plane);
+
+392 9 get_plane 0 4 578 25 CollisionPlane::get_plane 0 1 116 10
+/**
+ *
+ */
+59
+inline LPlane const &CollisionPlane::get_plane(void) const;
+
+393 4 flip 0 4 578 20 CollisionPlane::flip 0 1 117 57
+/**
+ * Convenience method to flip the plane in-place.
+ */
+39
+inline void CollisionPlane::flip(void);
+
+394 14 get_class_type 0 4 578 30 CollisionPlane::get_class_type 0 1 118 0
+55
+static TypeHandle CollisionPlane::get_class_type(void);
+
+395 15 ~CollisionPlane 0 516 578 31 CollisionPlane::~CollisionPlane 0 0 0
+38
+CollisionPlane::~CollisionPlane(void);
+
+396 18 CollisionFloorMesh 0 260 582 38 CollisionFloorMesh::CollisionFloorMesh 0 1 119 156
+/**
+ * This is only for the convenience of CollisionPolygon.  Normally, you should
+ * not attempt to create an uninitialized CollisionPlane.
+ */
+
+/**
+ *
+ */
+52
+inline CollisionFloorMesh::CollisionFloorMesh(void);
+
+397 10 add_vertex 0 4 582 30 CollisionFloorMesh::add_vertex 0 1 120 47
+/**
+ * store away a vertex to index against
+ */
+64
+inline void CollisionFloorMesh::add_vertex(LPoint3 const &vert);
+
+398 12 add_triangle 0 4 582 32 CollisionFloorMesh::add_triangle 0 1 121 42
+/**
+ * store a triangle for processing
+ */
+101
+void CollisionFloorMesh::add_triangle(unsigned int pointA, unsigned int pointB, unsigned int pointC);
+
+399 16 get_num_vertices 0 4 582 36 CollisionFloorMesh::get_num_vertices 0 1 122 0
+69
+inline unsigned int CollisionFloorMesh::get_num_vertices(void) const;
+
+400 10 get_vertex 0 4 582 30 CollisionFloorMesh::get_vertex 0 1 123 0
+79
+inline LPoint3 const &CollisionFloorMesh::get_vertex(unsigned int index) const;
+
+401 17 get_num_triangles 0 4 582 37 CollisionFloorMesh::get_num_triangles 0 1 124 0
+70
+inline unsigned int CollisionFloorMesh::get_num_triangles(void) const;
+
+402 12 get_triangle 0 4 582 32 CollisionFloorMesh::get_triangle 0 1 125 0
+75
+inline LPoint3i CollisionFloorMesh::get_triangle(unsigned int index) const;
+
+403 14 get_class_type 0 4 582 34 CollisionFloorMesh::get_class_type 0 1 126 0
+59
+static TypeHandle CollisionFloorMesh::get_class_type(void);
+
+404 19 ~CollisionFloorMesh 0 516 582 39 CollisionFloorMesh::~CollisionFloorMesh 0 0 0
+46
+CollisionFloorMesh::~CollisionFloorMesh(void);
+
+405 16 CollisionPolygon 0 260 584 34 CollisionPolygon::CollisionPolygon 0 2 127 128 127
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ * Creates an invalid polygon.  Only used when reading from a bam file.
+ */
+
+/**
+ *
+ */
+225
+inline CollisionPolygon::CollisionPolygon(LVecBase3 const &a, LVecBase3 const &b, LVecBase3 const &c);
+inline CollisionPolygon::CollisionPolygon(LVecBase3 const &a, LVecBase3 const &b, LVecBase3 const &c, LVecBase3 const &d);
+
+406 14 get_num_points 0 4 584 32 CollisionPolygon::get_num_points 0 1 129 66
+/**
+ * Returns the number of vertices of the CollisionPolygon.
+ */
+64
+inline std::size_t CollisionPolygon::get_num_points(void) const;
+
+407 9 get_point 0 4 584 27 CollisionPolygon::get_point 0 1 130 82
+/**
+ * Returns the nth vertex of the CollisionPolygon, expressed in 3-D space.
+ */
+64
+inline LPoint3 CollisionPolygon::get_point(std::size_t n) const;
+
+408 13 verify_points 0 4 584 31 CollisionPolygon::verify_points 0 3 131 132 133 676
+/**
+ * Verifies that the indicated set of points will define a valid
+ * CollisionPolygon: that is, at least three non-collinear points, with no
+ * points repeated.
+ */
+
+/**
+ * Verifies that the indicated set of points will define a valid
+ * CollisionPolygon: that is, at least three non-collinear points, with no
+ * points repeated.
+ */
+
+/**
+ * Verifies that the indicated set of points will define a valid
+ * CollisionPolygon: that is, at least three non-collinear points, with no
+ * points repeated.
+ *
+ * This does not check that the polygon defined is convex; that check is made
+ * later, once we have projected the points to 2-d space where the decision is
+ * easier.
+ */
+285
+static inline bool CollisionPolygon::verify_points(LPoint3 const &a, LPoint3 const &b, LPoint3 const &c, LPoint3 const &d);
+static bool CollisionPolygon::verify_points(LPoint3 const &a, LPoint3 const &b, LPoint3 const &c);
+static bool CollisionPolygon::verify_points(PyObject *points);
+
+409 8 is_valid 0 4 584 26 CollisionPolygon::is_valid 0 1 134 122
+/**
+ * Returns true if the CollisionPolygon is valid (that is, it has at least
+ * three vertices), or false otherwise.
+ */
+44
+bool CollisionPolygon::is_valid(void) const;
+
+410 10 is_concave 0 4 584 28 CollisionPolygon::is_concave 0 1 135 106
+/**
+ * Returns true if the CollisionPolygon appears to be concave, or false if it
+ * is safely convex.
+ */
+46
+bool CollisionPolygon::is_concave(void) const;
+
+411 12 setup_points 0 4 584 30 CollisionPolygon::setup_points 0 1 136 10
+/**
+ *
+ */
+54
+void CollisionPolygon::setup_points(PyObject *points);
+
+412 14 get_class_type 0 4 584 32 CollisionPolygon::get_class_type 0 1 137 0
+57
+static TypeHandle CollisionPolygon::get_class_type(void);
+
+413 17 ~CollisionPolygon 0 516 584 35 CollisionPolygon::~CollisionPolygon 0 0 0
+42
+CollisionPolygon::~CollisionPolygon(void);
+
+414 21 CollisionHandlerEvent 0 260 585 44 CollisionHandlerEvent::CollisionHandlerEvent 0 2 138 139 168
+/**
+ * The default CollisionHandlerEvent will throw no events.  Its pattern
+ * strings must first be set via a call to add_in_pattern() and/or
+ * add_out_pattern().
+ */
+145
+CollisionHandlerEvent::CollisionHandlerEvent(void);
+inline CollisionHandlerEvent::CollisionHandlerEvent(CollisionHandlerEvent const &) = default;
+
+415 17 clear_in_patterns 0 4 585 40 CollisionHandlerEvent::clear_in_patterns 0 1 140 80
+/**
+ * Removes all of the previously-added in patterns.  See add_in_pattern.
+ */
+59
+inline void CollisionHandlerEvent::clear_in_patterns(void);
+
+416 14 add_in_pattern 0 4 585 37 CollisionHandlerEvent::add_in_pattern 0 1 141 1586
+/**
+ * Adds a pattern string to the list of events that will be generated in
+ * response to a collision.  The pattern string describes how the event name
+ * will be composed.  It is a string that may contain any of the following:
+ *
+ * %fn  - the name of the "from" object's node %in  - the name of the "into"
+ * object's node %fs  - 't' if "from" is tangible, 'i' if intangible %is  -
+ * 't' if "into" is tangible, 'i' if intangible %ig  - 'c' if the collision is
+ * into a CollisionNode, 'g' if it is a geom.
+ *
+ * %(tag)fh - generate event only if "from" node has the indicated net tag.
+ * %(tag)fx - generate event only if "from" node does not have the indicated
+ * net tag.  %(tag)ih - generate event only if "into" node has the indicated
+ * net tag.  %(tag)ix - generate event only if "into" node does not have the
+ * indicated net tag.  %(tag)ft - the indicated net tag value of the "from"
+ * node.  %(tag)it - the indicated net tag value of the "into" node.
+ *
+ * Parentheses in the above are literal and should be included in the actual
+ * pattern.
+ *
+ * The event name will be based on the in_pattern string specified here, with
+ * all occurrences of the above strings replaced with the corresponding
+ * values.
+ *
+ * In general, the in_pattern event is thrown on the first detection of a
+ * collision between two particular nodes.  In subsequent passes, as long as a
+ * collision between those two nodes continues to be detected each frame, the
+ * again_pattern is thrown.  The first frame in which the collision is no
+ * longer detected, the out_pattern event is thrown.
+ */
+81
+inline void CollisionHandlerEvent::add_in_pattern(std::string const &in_pattern);
+
+417 14 set_in_pattern 0 4 585 37 CollisionHandlerEvent::set_in_pattern 0 1 142 189
+/**
+ * This method is deprecated; it completely replaces all the in patterns that
+ * have previously been set with the indicated pattern.
+ *
+ * @deprecated Use add_in_pattern() instead.
+ */
+81
+inline void CollisionHandlerEvent::set_in_pattern(std::string const &in_pattern);
+
+418 19 get_num_in_patterns 0 4 585 42 CollisionHandlerEvent::get_num_in_patterns 0 1 143 73
+/**
+ * Returns the number of in pattern strings that have been added.
+ */
+66
+inline int CollisionHandlerEvent::get_num_in_patterns(void) const;
+
+419 14 get_in_pattern 0 4 585 37 CollisionHandlerEvent::get_in_pattern 0 1 144 145
+/**
+ * Returns the nth pattern string that indicates how the event names are
+ * generated for each collision detected.  See add_in_pattern().
+ */
+70
+inline std::string CollisionHandlerEvent::get_in_pattern(int n) const;
+
+420 20 clear_again_patterns 0 4 585 43 CollisionHandlerEvent::clear_again_patterns 0 1 145 83
+/**
+ * Removes all of the previously-added in patterns.  See add_again_pattern.
+ */
+62
+inline void CollisionHandlerEvent::clear_again_patterns(void);
+
+421 17 add_again_pattern 0 4 585 40 CollisionHandlerEvent::add_again_pattern 0 1 146 649
+/**
+ * Adds the pattern string that indicates how the event names are generated
+ * when a collision between two particular nodes is *still* detected.  This
+ * event is thrown each consecutive time a collision between two particular
+ * nodes is detected, starting with the second time.
+ *
+ * In general, the in_pattern event is thrown on the first detection of a
+ * collision between two particular nodes.  In subsequent passes, as long as a
+ * collision between those two nodes continues to be detected each frame, the
+ * again_pattern is thrown.  The first frame in which the collision is no
+ * longer detected, the out_pattern event is thrown.
+ */
+87
+inline void CollisionHandlerEvent::add_again_pattern(std::string const &again_pattern);
+
+422 17 set_again_pattern 0 4 585 40 CollisionHandlerEvent::set_again_pattern 0 1 147 192
+/**
+ * This method is deprecated; it completely replaces all the in patterns that
+ * have previously been set with the indicated pattern.
+ *
+ * @deprecated Use add_again_pattern() instead.
+ */
+87
+inline void CollisionHandlerEvent::set_again_pattern(std::string const &again_pattern);
+
+423 22 get_num_again_patterns 0 4 585 45 CollisionHandlerEvent::get_num_again_patterns 0 1 148 73
+/**
+ * Returns the number of in pattern strings that have been added.
+ */
+69
+inline int CollisionHandlerEvent::get_num_again_patterns(void) const;
+
+424 17 get_again_pattern 0 4 585 40 CollisionHandlerEvent::get_again_pattern 0 1 149 148
+/**
+ * Returns the nth pattern string that indicates how the event names are
+ * generated for each collision detected.  See add_again_pattern().
+ */
+73
+inline std::string CollisionHandlerEvent::get_again_pattern(int n) const;
+
+425 18 clear_out_patterns 0 4 585 41 CollisionHandlerEvent::clear_out_patterns 0 1 150 81
+/**
+ * Removes all of the previously-added in patterns.  See add_out_pattern.
+ */
+60
+inline void CollisionHandlerEvent::clear_out_patterns(void);
+
+426 15 add_out_pattern 0 4 585 38 CollisionHandlerEvent::add_out_pattern 0 1 151 518
+/**
+ * Adds the pattern string that indicates how the event names are generated
+ * when a collision between two particular nodes is *no longer* detected.
+ *
+ * In general, the in_pattern event is thrown on the first detection of a
+ * collision between two particular nodes.  In subsequent passes, as long as a
+ * collision between those two nodes continues to be detected each frame, the
+ * again_pattern is thrown.  The first frame in which the collision is no
+ * longer detected, the out_pattern event is thrown.
+ */
+83
+inline void CollisionHandlerEvent::add_out_pattern(std::string const &out_pattern);
+
+427 15 set_out_pattern 0 4 585 38 CollisionHandlerEvent::set_out_pattern 0 1 152 190
+/**
+ * This method is deprecated; it completely replaces all the in patterns that
+ * have previously been set with the indicated pattern.
+ *
+ * @deprecated Use add_out_pattern() instead.
+ */
+83
+inline void CollisionHandlerEvent::set_out_pattern(std::string const &out_pattern);
+
+428 20 get_num_out_patterns 0 4 585 43 CollisionHandlerEvent::get_num_out_patterns 0 1 153 73
+/**
+ * Returns the number of in pattern strings that have been added.
+ */
+67
+inline int CollisionHandlerEvent::get_num_out_patterns(void) const;
+
+429 15 get_out_pattern 0 4 585 38 CollisionHandlerEvent::get_out_pattern 0 1 154 146
+/**
+ * Returns the nth pattern string that indicates how the event names are
+ * generated for each collision detected.  See add_out_pattern().
+ */
+71
+inline std::string CollisionHandlerEvent::get_out_pattern(int n) const;
+
+430 5 clear 0 4 585 28 CollisionHandlerEvent::clear 0 1 155 541
+/**
+ * Empties the list of elements that all colliders are known to be colliding
+ * with.  No "out" events will be thrown; if the same collision is detected
+ * next frame, a new "in" event will be thrown for each collision.
+ *
+ * This can be called each frame to defeat the persistent "in" event
+ * mechanism, which prevents the same "in" event from being thrown repeatedly.
+ * However, also see add_again_pattern(), which can be used to set the event
+ * that is thrown when a collision is detected for two or more consecutive
+ * frames.
+ */
+40
+void CollisionHandlerEvent::clear(void);
+
+431 5 flush 0 4 585 28 CollisionHandlerEvent::flush 0 1 156 58
+/**
+ * Same as clear() except "out" events are thrown.
+ */
+40
+void CollisionHandlerEvent::flush(void);
+
+432 10 __reduce__ 0 4 585 33 CollisionHandlerEvent::__reduce__ 0 1 157 46
+// These help implement Python pickle support.
+66
+PyObject *CollisionHandlerEvent::__reduce__(PyObject *self) const;
+
+433 12 __setstate__ 0 4 585 35 CollisionHandlerEvent::__setstate__ 0 1 158 0
+76
+void CollisionHandlerEvent::__setstate__(PyObject *self, vector_uchar data);
+
+434 14 write_datagram 0 6 585 37 CollisionHandlerEvent::write_datagram 0 1 159 63
+/**
+ * Serializes this object, to implement pickle support.
+ */
+80
+virtual void CollisionHandlerEvent::write_datagram(Datagram &destination) const;
+
+435 13 read_datagram 0 6 585 36 CollisionHandlerEvent::read_datagram 0 1 160 104
+/**
+ * Restores the object state from the given datagram, previously obtained using
+ * __getstate__.
+ */
+76
+virtual void CollisionHandlerEvent::read_datagram(DatagramIterator &source);
+
+436 14 get_class_type 0 4 585 37 CollisionHandlerEvent::get_class_type 0 1 161 0
+62
+static TypeHandle CollisionHandlerEvent::get_class_type(void);
+
+437 22 ~CollisionHandlerEvent 0 516 585 45 CollisionHandlerEvent::~CollisionHandlerEvent 0 0 0
+52
+CollisionHandlerEvent::~CollisionHandlerEvent(void);
+
+438 12 add_collider 0 4 588 38 CollisionHandlerPhysical::add_collider 0 2 162 163 556
+/**
+ * Adds a new collider to the list with a NodePath that will be updated with
+ * the collider's new position, or updates the existing collider with a new
+ * NodePath object.
+ */
+
+/**
+ * Adds a new collider to the list with a NodePath that will be updated with
+ * the collider's new position, or updates the existing collider with a new
+ * NodePath object.
+ *
+ * The indicated DriveInterface will also be updated with the target's new
+ * transform each frame.  This method should be used when the target is
+ * directly controlled by a DriveInterface.
+ */
+222
+void CollisionHandlerPhysical::add_collider(NodePath const &collider, NodePath const &target);
+void CollisionHandlerPhysical::add_collider(NodePath const &collider, NodePath const &target, DriveInterface *drive_interface);
+
+439 15 remove_collider 0 4 588 41 CollisionHandlerPhysical::remove_collider 0 1 164 92
+/**
+ * Removes the collider from the list of colliders that this handler knows
+ * about.
+ */
+73
+bool CollisionHandlerPhysical::remove_collider(NodePath const &collider);
+
+440 12 has_collider 0 4 588 38 CollisionHandlerPhysical::has_collider 0 1 165 94
+/**
+ * Returns true if the handler knows about the indicated collider, false
+ * otherwise.
+ */
+76
+bool CollisionHandlerPhysical::has_collider(NodePath const &collider) const;
+
+441 15 clear_colliders 0 4 588 41 CollisionHandlerPhysical::clear_colliders 0 1 166 77
+/**
+ * Completely empties the list of colliders this handler knows about.
+ */
+53
+void CollisionHandlerPhysical::clear_colliders(void);
+
+442 10 set_center 0 4 588 36 CollisionHandlerPhysical::set_center 0 1 167 269
+/**
+ * Specifies an arbitrary NodePath that the handler is always considered to be
+ * facing.  It does not detect collisions with surfaces that appear to be
+ * facing away from this NodePath.  This works best when the collision
+ * surfaces in question are polygons.
+ */
+73
+inline void CollisionHandlerPhysical::set_center(NodePath const &center);
+
+443 12 clear_center 0 4 588 38 CollisionHandlerPhysical::clear_center 0 1 168 64
+/**
+ * Clears the center NodePath specified with set_center.
+ */
+57
+inline void CollisionHandlerPhysical::clear_center(void);
+
+444 10 get_center 0 4 588 36 CollisionHandlerPhysical::get_center 0 1 169 114
+/**
+ * Returns the NodePath specified with set_center, or the empty NodePath if
+ * nothing has been specified.
+ */
+72
+inline NodePath const &CollisionHandlerPhysical::get_center(void) const;
+
+445 10 has_center 0 4 588 36 CollisionHandlerPhysical::has_center 0 1 170 95
+/**
+ * Returns true if a NodePath has been specified with set_center(), false
+ * otherwise.
+ */
+61
+inline bool CollisionHandlerPhysical::has_center(void) const;
+
+446 11 has_contact 0 4 588 37 CollisionHandlerPhysical::has_contact 0 1 171 255
+/**
+ * Did the handler make any contacts with anything on the last collision pass?
+ * Depending on how your world is setup, this can be used to tell if the
+ * handler is out of the world (i.e.  out of bounds). That is the original use
+ * of this call.
+ */
+62
+inline bool CollisionHandlerPhysical::has_contact(void) const;
+
+447 10 __reduce__ 0 4 588 36 CollisionHandlerPhysical::__reduce__ 0 1 172 0
+69
+PyObject *CollisionHandlerPhysical::__reduce__(PyObject *self) const;
+
+448 12 __setstate__ 0 4 588 38 CollisionHandlerPhysical::__setstate__ 0 1 173 0
+100
+void CollisionHandlerPhysical::__setstate__(PyObject *self, vector_uchar data, PyObject *nodepaths);
+
+449 14 get_class_type 0 4 588 40 CollisionHandlerPhysical::get_class_type 0 1 174 0
+65
+static TypeHandle CollisionHandlerPhysical::get_class_type(void);
+
+450 21 CollisionHandlerFloor 0 260 590 44 CollisionHandlerFloor::CollisionHandlerFloor 0 1 175 10
+/**
+ *
+ */
+51
+CollisionHandlerFloor::CollisionHandlerFloor(void);
+
+451 10 set_offset 0 4 590 33 CollisionHandlerFloor::set_offset 0 1 176 166
+/**
+ * Sets the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */
+66
+inline void CollisionHandlerFloor::set_offset(PN_stdfloat offset);
+
+452 10 get_offset 0 4 590 33 CollisionHandlerFloor::get_offset 0 1 177 169
+/**
+ * Returns the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */
+65
+inline PN_stdfloat CollisionHandlerFloor::get_offset(void) const;
+
+453 9 set_reach 0 4 590 32 CollisionHandlerFloor::set_reach 0 1 178 82
+/**
+ * Sets the reach to add to (or subtract from) the highest collision point
+ */
+64
+inline void CollisionHandlerFloor::set_reach(PN_stdfloat reach);
+
+454 9 get_reach 0 4 590 32 CollisionHandlerFloor::get_reach 0 1 179 85
+/**
+ * Returns the reach to add to (or subtract from) the highest collision point
+ */
+64
+inline PN_stdfloat CollisionHandlerFloor::get_reach(void) const;
+
+455 16 set_max_velocity 0 4 590 39 CollisionHandlerFloor::set_max_velocity 0 1 180 199
+/**
+ * Sets the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  Set this to zero to allow
+ * it to instantly teleport any distance.
+ */
+73
+inline void CollisionHandlerFloor::set_max_velocity(PN_stdfloat max_vel);
+
+456 16 get_max_velocity 0 4 590 39 CollisionHandlerFloor::get_max_velocity 0 1 181 160
+/**
+ * Retrieves the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  See set_max_velocity().
+ */
+71
+inline PN_stdfloat CollisionHandlerFloor::get_max_velocity(void) const;
+
+457 14 get_class_type 0 4 590 37 CollisionHandlerFloor::get_class_type 0 1 182 0
+62
+static TypeHandle CollisionHandlerFloor::get_class_type(void);
+
+458 22 CollisionHandlerPusher 0 260 591 46 CollisionHandlerPusher::CollisionHandlerPusher 0 1 183 10
+/**
+ *
+ */
+53
+CollisionHandlerPusher::CollisionHandlerPusher(void);
+
+459 14 set_horizontal 0 4 591 38 CollisionHandlerPusher::set_horizontal 0 1 184 10
+/**
+ *
+ */
+62
+inline void CollisionHandlerPusher::set_horizontal(bool flag);
+
+460 14 get_horizontal 0 4 591 38 CollisionHandlerPusher::get_horizontal 0 1 185 10
+/**
+ *
+ */
+63
+inline bool CollisionHandlerPusher::get_horizontal(void) const;
+
+461 14 get_class_type 0 4 591 38 CollisionHandlerPusher::get_class_type 0 1 186 0
+63
+static TypeHandle CollisionHandlerPusher::get_class_type(void);
+
+462 27 CollisionHandlerFluidPusher 0 260 592 56 CollisionHandlerFluidPusher::CollisionHandlerFluidPusher 0 1 187 10
+/**
+ *
+ */
+63
+CollisionHandlerFluidPusher::CollisionHandlerFluidPusher(void);
+
+463 14 get_class_type 0 4 592 43 CollisionHandlerFluidPusher::get_class_type 0 1 188 0
+68
+static TypeHandle CollisionHandlerFluidPusher::get_class_type(void);
+
+464 28 ~CollisionHandlerFluidPusher 0 516 592 57 CollisionHandlerFluidPusher::~CollisionHandlerFluidPusher 0 0 0
+64
+CollisionHandlerFluidPusher::~CollisionHandlerFluidPusher(void);
+
+465 23 CollisionHandlerGravity 0 260 593 48 CollisionHandlerGravity::CollisionHandlerGravity 0 1 189 10
+/**
+ *
+ */
+55
+CollisionHandlerGravity::CollisionHandlerGravity(void);
+
+466 10 set_offset 0 4 593 35 CollisionHandlerGravity::set_offset 0 1 190 166
+/**
+ * Sets the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */
+68
+inline void CollisionHandlerGravity::set_offset(PN_stdfloat offset);
+
+467 10 get_offset 0 4 593 35 CollisionHandlerGravity::get_offset 0 1 191 169
+/**
+ * Returns the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */
+67
+inline PN_stdfloat CollisionHandlerGravity::get_offset(void) const;
+
+468 9 set_reach 0 4 593 34 CollisionHandlerGravity::set_reach 0 1 192 82
+/**
+ * Sets the reach to add to (or subtract from) the highest collision point
+ */
+66
+inline void CollisionHandlerGravity::set_reach(PN_stdfloat reach);
+
+469 9 get_reach 0 4 593 34 CollisionHandlerGravity::get_reach 0 1 193 85
+/**
+ * Returns the reach to add to (or subtract from) the highest collision point
+ */
+66
+inline PN_stdfloat CollisionHandlerGravity::get_reach(void) const;
+
+470 19 get_airborne_height 0 4 593 44 CollisionHandlerGravity::get_airborne_height 0 1 194 202
+/**
+ * Return the height of the object from the ground.
+ *
+ * The object might not necessarily be at rest.  Use is_on_ground() if you
+ * want to know whether the object is on the ground and at rest.
+ */
+76
+inline PN_stdfloat CollisionHandlerGravity::get_airborne_height(void) const;
+
+471 12 is_on_ground 0 4 593 37 CollisionHandlerGravity::is_on_ground 0 1 195 33
+/**
+ * Is the object at rest?
+ */
+62
+inline bool CollisionHandlerGravity::is_on_ground(void) const;
+
+472 19 get_impact_velocity 0 4 593 44 CollisionHandlerGravity::get_impact_velocity 0 1 196 283
+/**
+ * How hard did the object hit the ground.  This value is set on impact with
+ * the ground.  You may want to watch (poll) on is_on_ground() and when that is
+ * true, call get_impact_velocity(). Normally I avoid polling, but we are
+ * calling is_on_ground() frequently anyway.
+ */
+76
+inline PN_stdfloat CollisionHandlerGravity::get_impact_velocity(void) const;
+
+473 18 get_contact_normal 0 4 593 43 CollisionHandlerGravity::get_contact_normal 0 1 197 10
+/**
+ *
+ */
+79
+inline LVector3 const &CollisionHandlerGravity::get_contact_normal(void) const;
+
+474 12 add_velocity 0 4 593 37 CollisionHandlerGravity::add_velocity 0 1 198 184
+/**
+ * Adds the sepcified amount to the current velocity.  This is mostly here
+ * allow this common operation to be faster for scripting, but it's also more
+ * concise even in cpp.
+ */
+72
+inline void CollisionHandlerGravity::add_velocity(PN_stdfloat velocity);
+
+475 12 set_velocity 0 4 593 37 CollisionHandlerGravity::set_velocity 0 1 199 46
+/**
+ * Sets the current vertical velocity.
+ */
+72
+inline void CollisionHandlerGravity::set_velocity(PN_stdfloat velocity);
+
+476 12 get_velocity 0 4 593 37 CollisionHandlerGravity::get_velocity 0 1 200 354
+/**
+ * Gets the current vertical velocity.
+ *
+ * Generally, negative values mean the object is in free fall; while postive
+ * values mean the object has vertical thrust.
+ *
+ * A zero value does not necessarily mean the object on the ground, it may
+ * also be weightless and/or at the apex of its jump.
+ *
+ * See Also: is_on_ground() and get_gravity()
+ */
+69
+inline PN_stdfloat CollisionHandlerGravity::get_velocity(void) const;
+
+477 11 set_gravity 0 4 593 36 CollisionHandlerGravity::set_gravity 0 1 201 56
+/**
+ * Sets the linear gravity force (always plumb).
+ */
+70
+inline void CollisionHandlerGravity::set_gravity(PN_stdfloat gravity);
+
+478 11 get_gravity 0 4 593 36 CollisionHandlerGravity::get_gravity 0 1 202 56
+/**
+ * Gets the linear gravity force (always plumb).
+ */
+68
+inline PN_stdfloat CollisionHandlerGravity::get_gravity(void) const;
+
+479 16 set_max_velocity 0 4 593 41 CollisionHandlerGravity::set_max_velocity 0 1 203 199
+/**
+ * Sets the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  Set this to zero to allow
+ * it to instantly teleport any distance.
+ */
+75
+inline void CollisionHandlerGravity::set_max_velocity(PN_stdfloat max_vel);
+
+480 16 get_max_velocity 0 4 593 41 CollisionHandlerGravity::get_max_velocity 0 1 204 160
+/**
+ * Retrieves the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  See set_max_velocity().
+ */
+73
+inline PN_stdfloat CollisionHandlerGravity::get_max_velocity(void) const;
+
+481 15 set_legacy_mode 0 4 593 40 CollisionHandlerGravity::set_legacy_mode 0 1 205 229
+/**
+ * Enables old behavior required by Toontown (Sellbot Factory lava room is
+ * good test case, lava and conveyor belt specifically). Behavior is to throw
+ * enter/exit events only for floor that the toon is in contact with
+ */
+71
+inline void CollisionHandlerGravity::set_legacy_mode(bool legacy_mode);
+
+482 15 get_legacy_mode 0 4 593 40 CollisionHandlerGravity::get_legacy_mode 0 1 206 49
+/**
+ * returns true if legacy mode is enabled
+ */
+65
+inline bool CollisionHandlerGravity::get_legacy_mode(void) const;
+
+483 14 get_class_type 0 4 593 39 CollisionHandlerGravity::get_class_type 0 1 207 0
+64
+static TypeHandle CollisionHandlerGravity::get_class_type(void);
+
+484 28 CollisionHandlerHighestEvent 0 260 595 58 CollisionHandlerHighestEvent::CollisionHandlerHighestEvent 0 2 208 209 168
+/**
+ * The default CollisionHandlerEvent will throw no events.  Its pattern
+ * strings must first be set via a call to add_in_pattern() and/or
+ * add_out_pattern().
+ */
+180
+CollisionHandlerHighestEvent::CollisionHandlerHighestEvent(void);
+inline CollisionHandlerHighestEvent::CollisionHandlerHighestEvent(CollisionHandlerHighestEvent const &) = default;
+
+485 14 get_class_type 0 4 595 44 CollisionHandlerHighestEvent::get_class_type 0 1 210 0
+69
+static TypeHandle CollisionHandlerHighestEvent::get_class_type(void);
+
+486 29 ~CollisionHandlerHighestEvent 0 516 595 59 CollisionHandlerHighestEvent::~CollisionHandlerHighestEvent 0 0 0
+66
+CollisionHandlerHighestEvent::~CollisionHandlerHighestEvent(void);
+
+487 21 CollisionHandlerQueue 0 260 596 44 CollisionHandlerQueue::CollisionHandlerQueue 0 2 211 212 10
+/**
+ *
+ */
+145
+CollisionHandlerQueue::CollisionHandlerQueue(void);
+inline CollisionHandlerQueue::CollisionHandlerQueue(CollisionHandlerQueue const &) = default;
+
+488 12 sort_entries 0 4 596 35 CollisionHandlerQueue::sort_entries 0 1 213 257
+/**
+ * Sorts all the detected collisions front-to-back by
+ * from_intersection_point() so that those intersection points closest to the
+ * collider's origin (e.g., the center of the CollisionSphere, or the point_a
+ * of a CollisionSegment) appear first.
+ */
+47
+void CollisionHandlerQueue::sort_entries(void);
+
+489 13 clear_entries 0 4 596 36 CollisionHandlerQueue::clear_entries 0 1 214 50
+/**
+ * Removes all the entries from the queue.
+ */
+48
+void CollisionHandlerQueue::clear_entries(void);
+
+490 15 get_num_entries 0 4 596 38 CollisionHandlerQueue::get_num_entries 0 1 215 69
+/**
+ * Returns the number of CollisionEntries detected last pass.
+ */
+55
+int CollisionHandlerQueue::get_num_entries(void) const;
+
+491 9 get_entry 0 4 596 32 CollisionHandlerQueue::get_entry 0 1 216 61
+/**
+ * Returns the nth CollisionEntry detected last pass.
+ */
+62
+CollisionEntry *CollisionHandlerQueue::get_entry(int n) const;
+
+492 6 output 0 4 596 29 CollisionHandlerQueue::output 0 1 217 10
+/**
+ *
+ */
+60
+void CollisionHandlerQueue::output(std::ostream &out) const;
+
+493 5 write 0 4 596 28 CollisionHandlerQueue::write 0 1 218 10
+/**
+ *
+ */
+81
+void CollisionHandlerQueue::write(std::ostream &out, int indent_level = 0) const;
+
+494 10 __reduce__ 0 4 596 33 CollisionHandlerQueue::__reduce__ 0 1 219 0
+66
+PyObject *CollisionHandlerQueue::__reduce__(PyObject *self) const;
+
+495 14 get_class_type 0 4 596 37 CollisionHandlerQueue::get_class_type 0 1 220 0
+62
+static TypeHandle CollisionHandlerQueue::get_class_type(void);
+
+496 22 ~CollisionHandlerQueue 0 516 596 45 CollisionHandlerQueue::~CollisionHandlerQueue 0 0 0
+52
+CollisionHandlerQueue::~CollisionHandlerQueue(void);
+
+497 20 CollisionHeightfield 0 260 598 42 CollisionHeightfield::CollisionHeightfield 0 1 221 34
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+111
+CollisionHeightfield::CollisionHeightfield(PNMImage heightfield, PN_stdfloat max_height, int num_subdivisions);
+
+498 15 get_heightfield 0 4 598 37 CollisionHeightfield::get_heightfield 0 1 222 10
+/**
+ *
+ */
+60
+inline PNMImage CollisionHeightfield::get_heightfield(void);
+
+499 15 set_heightfield 0 4 598 37 CollisionHeightfield::set_heightfield 0 1 223 10
+/**
+ *
+ */
+72
+inline void CollisionHeightfield::set_heightfield(PNMImage heightfield);
+
+500 14 get_max_height 0 4 598 36 CollisionHeightfield::get_max_height 0 1 224 10
+/**
+ *
+ */
+62
+inline PN_stdfloat CollisionHeightfield::get_max_height(void);
+
+501 14 set_max_height 0 4 598 36 CollisionHeightfield::set_max_height 0 1 225 10
+/**
+ *
+ */
+73
+inline void CollisionHeightfield::set_max_height(PN_stdfloat max_height);
+
+502 20 get_num_subdivisions 0 4 598 42 CollisionHeightfield::get_num_subdivisions 0 1 226 10
+/**
+ *
+ */
+60
+inline int CollisionHeightfield::get_num_subdivisions(void);
+
+503 20 set_num_subdivisions 0 4 598 42 CollisionHeightfield::set_num_subdivisions 0 1 227 325
+/**
+ * Sets the number of quadtree subdivisions and modifies
+ * the quadtree accordingly. This should be called when a
+ * user wants to modify the number of quadtree subdivisions
+ * or from a constructor to initialize the quadtree.
+ *
+ * If the number of subdivisions is too high, it will
+ * automatically be decremented.
+ */
+70
+void CollisionHeightfield::set_num_subdivisions(int num_subdivisions);
+
+504 10 get_height 0 4 598 32 CollisionHeightfield::get_height 0 1 228 10
+/**
+ *
+ */
+72
+inline PN_stdfloat CollisionHeightfield::get_height(int x, int y) const;
+
+505 14 get_class_type 0 4 598 36 CollisionHeightfield::get_class_type 0 1 229 0
+61
+static TypeHandle CollisionHeightfield::get_class_type(void);
+
+506 15 CollisionSphere 0 260 599 32 CollisionSphere::CollisionSphere 0 2 230 231 114
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ * Creates an invalid sphere.  Only used when reading from a bam file.
+ */
+
+/**
+ *
+ */
+210
+inline explicit CollisionSphere::CollisionSphere(LPoint3 const &center, PN_stdfloat radius);
+inline explicit CollisionSphere::CollisionSphere(PN_stdfloat cx, PN_stdfloat cy, PN_stdfloat cz, PN_stdfloat radius);
+
+507 10 set_center 0 4 599 27 CollisionSphere::set_center 0 2 232 233 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+149
+inline void CollisionSphere::set_center(LPoint3 const &center);
+inline void CollisionSphere::set_center(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+508 10 get_center 0 4 599 27 CollisionSphere::get_center 0 1 234 10
+/**
+ *
+ */
+62
+inline LPoint3 const &CollisionSphere::get_center(void) const;
+
+509 10 set_radius 0 4 599 27 CollisionSphere::set_radius 0 1 235 10
+/**
+ *
+ */
+60
+inline void CollisionSphere::set_radius(PN_stdfloat radius);
+
+510 10 get_radius 0 4 599 27 CollisionSphere::get_radius 0 1 236 10
+/**
+ *
+ */
+59
+inline PN_stdfloat CollisionSphere::get_radius(void) const;
+
+511 14 get_class_type 0 4 599 31 CollisionSphere::get_class_type 0 1 237 0
+56
+static TypeHandle CollisionSphere::get_class_type(void);
+
+512 16 ~CollisionSphere 0 516 599 33 CollisionSphere::~CollisionSphere 0 0 0
+40
+CollisionSphere::~CollisionSphere(void);
+
+513 18 CollisionInvSphere 0 260 600 38 CollisionInvSphere::CollisionInvSphere 0 2 238 239 114
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ * Creates an invalid sphere.  Only used when reading from a bam file.
+ */
+
+/**
+ *
+ */
+222
+inline explicit CollisionInvSphere::CollisionInvSphere(LPoint3 const &center, PN_stdfloat radius);
+inline explicit CollisionInvSphere::CollisionInvSphere(PN_stdfloat cx, PN_stdfloat cy, PN_stdfloat cz, PN_stdfloat radius);
+
+514 14 get_class_type 0 4 600 34 CollisionInvSphere::get_class_type 0 1 240 0
+59
+static TypeHandle CollisionInvSphere::get_class_type(void);
+
+515 19 ~CollisionInvSphere 0 516 600 39 CollisionInvSphere::~CollisionInvSphere 0 0 0
+46
+CollisionInvSphere::~CollisionInvSphere(void);
+
+516 12 CollisionRay 0 260 601 26 CollisionRay::CollisionRay 0 3 241 242 243 219
+/**
+ * Creates an invalid ray.  This isn't terribly useful; it's expected that the
+ * user will subsequently adjust the ray via set_origin()/set_direction() or
+ * set_from_lens().
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+274
+inline CollisionRay::CollisionRay(void);
+inline explicit CollisionRay::CollisionRay(LPoint3 const &origin, LVector3 const &direction);
+inline explicit CollisionRay::CollisionRay(PN_stdfloat ox, PN_stdfloat oy, PN_stdfloat oz, PN_stdfloat dx, PN_stdfloat dy, PN_stdfloat dz);
+
+517 10 set_origin 0 4 601 24 CollisionRay::set_origin 0 2 244 245 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+143
+inline void CollisionRay::set_origin(LPoint3 const &origin);
+inline void CollisionRay::set_origin(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+518 10 get_origin 0 4 601 24 CollisionRay::get_origin 0 1 246 10
+/**
+ *
+ */
+59
+inline LPoint3 const &CollisionRay::get_origin(void) const;
+
+519 13 set_direction 0 4 601 27 CollisionRay::set_direction 0 2 247 248 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+153
+inline void CollisionRay::set_direction(LVector3 const &direction);
+inline void CollisionRay::set_direction(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+520 13 get_direction 0 4 601 27 CollisionRay::get_direction 0 1 249 10
+/**
+ *
+ */
+63
+inline LVector3 const &CollisionRay::get_direction(void) const;
+
+521 13 set_from_lens 0 4 601 27 CollisionRay::set_from_lens 0 2 250 251 591
+/**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionRay so that it begins at the LensNode's near plane and extends to
+ * infinity, making it suitable for picking objects from the screen given a
+ * camera and a mouse location.
+ */
+
+/**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionRay so that it begins at the LensNode's near plane and extends to
+ * infinity, making it suitable for picking objects from the screen given a
+ * camera and a mouse location.
+ *
+ * Returns true if the point was acceptable, false otherwise.
+ */
+164
+bool CollisionRay::set_from_lens(LensNode *camera, LPoint2 const &point);
+inline bool CollisionRay::set_from_lens(LensNode *camera, PN_stdfloat px, PN_stdfloat py);
+
+522 14 get_class_type 0 4 601 28 CollisionRay::get_class_type 0 1 252 0
+53
+static TypeHandle CollisionRay::get_class_type(void);
+
+523 13 ~CollisionRay 0 516 601 27 CollisionRay::~CollisionRay 0 0 0
+34
+CollisionRay::~CollisionRay(void);
+
+524 13 CollisionLine 0 260 602 28 CollisionLine::CollisionLine 0 3 253 254 255 221
+/**
+ * Creates an invalid line.  This isn't terribly useful; it's expected that
+ * the user will subsequently adjust the line via set_origin()/set_direction()
+ * or set_from_lens().
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+280
+inline CollisionLine::CollisionLine(void);
+inline explicit CollisionLine::CollisionLine(LPoint3 const &origin, LVector3 const &direction);
+inline explicit CollisionLine::CollisionLine(PN_stdfloat ox, PN_stdfloat oy, PN_stdfloat oz, PN_stdfloat dx, PN_stdfloat dy, PN_stdfloat dz);
+
+525 14 get_class_type 0 4 602 29 CollisionLine::get_class_type 0 1 256 0
+54
+static TypeHandle CollisionLine::get_class_type(void);
+
+526 14 ~CollisionLine 0 516 602 29 CollisionLine::~CollisionLine 0 0 0
+36
+CollisionLine::~CollisionLine(void);
+
+527 17 CollisionParabola 0 260 603 36 CollisionParabola::CollisionParabola 0 2 257 258 163
+/**
+ * Creates an invalid parabola.
+ */
+
+/**
+ * Creates a parabola with the endpoints between t1 and t2 in the parametric
+ * space of the parabola.
+ */
+
+/**
+ *
+ */
+163
+inline CollisionParabola::CollisionParabola(void);
+inline explicit CollisionParabola::CollisionParabola(LParabola const &parabola, PN_stdfloat t1, PN_stdfloat t2);
+
+528 12 set_parabola 0 4 603 31 CollisionParabola::set_parabola 0 1 259 57
+/**
+ * Replaces the parabola specified by this solid.
+ */
+71
+inline void CollisionParabola::set_parabola(LParabola const &parabola);
+
+529 12 get_parabola 0 4 603 31 CollisionParabola::get_parabola 0 1 260 56
+/**
+ * Returns the parabola specified by this solid.
+ */
+68
+inline LParabola const &CollisionParabola::get_parabola(void) const;
+
+530 6 set_t1 0 4 603 25 CollisionParabola::set_t1 0 1 261 54
+/**
+ * Changes the starting point on the parabola.
+ */
+54
+inline void CollisionParabola::set_t1(PN_stdfloat t1);
+
+531 6 get_t1 0 4 603 25 CollisionParabola::get_t1 0 1 262 54
+/**
+ * Returns the starting point on the parabola.
+ */
+57
+inline PN_stdfloat CollisionParabola::get_t1(void) const;
+
+532 6 set_t2 0 4 603 25 CollisionParabola::set_t2 0 1 263 52
+/**
+ * Changes the ending point on the parabola.
+ */
+54
+inline void CollisionParabola::set_t2(PN_stdfloat t2);
+
+533 6 get_t2 0 4 603 25 CollisionParabola::get_t2 0 1 264 52
+/**
+ * Returns the ending point on the parabola.
+ */
+57
+inline PN_stdfloat CollisionParabola::get_t2(void) const;
+
+534 14 get_class_type 0 4 603 33 CollisionParabola::get_class_type 0 1 265 0
+58
+static TypeHandle CollisionParabola::get_class_type(void);
+
+535 18 ~CollisionParabola 0 516 603 37 CollisionParabola::~CollisionParabola 0 0 0
+44
+CollisionParabola::~CollisionParabola(void);
+
+536 16 CollisionSegment 0 260 607 34 CollisionSegment::CollisionSegment 0 3 266 267 268 227
+/**
+ * Creates an invalid segment.  This isn't terribly useful; it's expected that
+ * the user will subsequently adjust the segment via
+ * set_origin()/set_direction() or set_from_lens().
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+
+/**
+ *
+ */
+285
+inline CollisionSegment::CollisionSegment(void);
+inline explicit CollisionSegment::CollisionSegment(LPoint3 const &a, LPoint3 const &db);
+inline explicit CollisionSegment::CollisionSegment(PN_stdfloat ax, PN_stdfloat ay, PN_stdfloat az, PN_stdfloat bx, PN_stdfloat by, PN_stdfloat bz);
+
+537 11 set_point_a 0 4 607 29 CollisionSegment::set_point_a 0 2 269 270 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+148
+inline void CollisionSegment::set_point_a(LPoint3 const &a);
+inline void CollisionSegment::set_point_a(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+538 11 get_point_a 0 4 607 29 CollisionSegment::get_point_a 0 1 271 10
+/**
+ *
+ */
+64
+inline LPoint3 const &CollisionSegment::get_point_a(void) const;
+
+539 11 set_point_b 0 4 607 29 CollisionSegment::set_point_b 0 2 272 273 22
+/**
+ *
+ */
+
+/**
+ *
+ */
+148
+inline void CollisionSegment::set_point_b(LPoint3 const &b);
+inline void CollisionSegment::set_point_b(PN_stdfloat x, PN_stdfloat y, PN_stdfloat z);
+
+540 11 get_point_b 0 4 607 29 CollisionSegment::get_point_b 0 1 274 10
+/**
+ *
+ */
+64
+inline LPoint3 const &CollisionSegment::get_point_b(void) const;
+
+541 13 set_from_lens 0 4 607 31 CollisionSegment::set_from_lens 0 2 275 276 609
+/**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionSegment so that it begins at the LensNode's near plane and extends
+ * to the far plane, making it suitable for picking objects from the screen
+ * given a camera and a mouse location.
+ */
+
+/**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionSegment so that it begins at the LensNode's near plane and extends
+ * to the far plane, making it suitable for picking objects from the screen
+ * given a camera and a mouse location.
+ *
+ * Returns true if the point was acceptable, false otherwise.
+ */
+172
+bool CollisionSegment::set_from_lens(LensNode *camera, LPoint2 const &point);
+inline bool CollisionSegment::set_from_lens(LensNode *camera, PN_stdfloat px, PN_stdfloat py);
+
+542 14 get_class_type 0 4 607 32 CollisionSegment::get_class_type 0 1 277 0
+57
+static TypeHandle CollisionSegment::get_class_type(void);
+
+543 17 ~CollisionSegment 0 516 607 35 CollisionSegment::~CollisionSegment 0 0 0
+42
+CollisionSegment::~CollisionSegment(void);
+
+277
+1 0 0 7 278 609 0 0 0 1 4 this 3 574  
+2 0 0 4 279 611 0 0 295 /**
+ * Sets the current state of the 'tangible' flag.  Set this true to make the
+ * solid tangible, so that a CollisionHandlerPusher will not allow another
+ * object to intersect it, or false to make it intangible, so that a
+ * CollisionHandlerPusher will ignore it except to throw an event.
+ */ 2 4 this 3 610  8 tangible 1 548  
+3 0 0 6 280 548 0 0 266 /**
+ * Returns whether the solid is considered 'tangible' or not.  An intangible
+ * solid has no effect in a CollisionHandlerPusher (except to throw an event);
+ * it's useful for defining 'trigger' planes and spheres, that cause an effect
+ * when passed through.
+ */ 1 4 this 3 574  
+4 0 0 4 281 611 0 0 388 /**
+ * Records a false normal for this CollisionSolid that will be reported by the
+ * collision system with all collisions into it, instead of its actual normal.
+ * This is useful as a workaround for the problem of an avatar wanting to
+ * stand on a sloping ground; by storing a false normal, the ground appears to
+ * be perfectly level, and the avatar does not tend to slide down it.
+ */ 2 4 this 3 610  16 effective_normal 1 612  
+5 0 0 4 282 611 0 0 71 /**
+ * Removes the normal previously set by set_effective_normal().
+ */ 1 4 this 3 610  
+6 0 0 6 283 548 0 0 98 /**
+ * Returns true if a special normal was set by set_effective_normal(), false
+ * otherwise.
+ */ 1 4 this 3 574  
+7 0 0 6 284 612 0 0 145 /**
+ * Returns the normal that was set by set_effective_normal().  It is an error
+ * to call this unless has_effective_normal() returns true.
+ */ 1 4 this 3 574  
+8 0 0 4 285 611 0 0 296 /**
+ * This is only meaningful for CollisionSolids that will be added to a
+ * traverser as colliders.  It is normally true, but if set false, it means
+ * that this particular solid does not care about the "effective" normal of
+ * other solids it meets, but rather always uses the true normal.
+ */ 2 4 this 3 610  24 respect_effective_normal 1 548  
+9 0 0 6 286 548 0 0 46 /**
+ * See set_respect_effective_normal().
+ */ 1 4 this 3 574  
+10 0 0 7 287 615 0 0 47 /**
+ * Returns the solid's bounding volume.
+ */ 1 4 this 3 574  
+11 0 0 4 288 611 0 0 47 /**
+ * Returns the solid's bounding volume.
+ */ 2 4 this 3 610  15 bounding_volume 1 615  
+12 0 0 4 289 611 0 0 10 /**
+ *
+ */ 2 4 this 3 574  3 out 1 616  
+13 0 0 4 290 611 0 0 10 /**
+ *
+ */ 3 4 this 3 574  3 out 1 616  12 indent_level 5 565  
+14 0 0 7 291 619 0 0 0 0 
+15 0 0 7 292 621 305 0 59 /**
+ * Create the Box by Specifying the Diagonal Points
+ */ 2 3 min 1 620  3 max 1 620  
+16 0 0 7 292 621 305 0 106 /**
+ * Create the Box by giving a Center and distances of each of the sides of
+ * box from the Center.
+ */ 4 6 center 1 620  1 x 1 555  1 y 1 555  1 z 1 555  
+17 0 0 6 293 565 0 0 68 /**
+ * Returns 8: the number of vertices of a rectangular solid.
+ */ 1 4 this 3 622  
+18 0 0 7 294 609 0 0 67 /**
+ * Returns the nth vertex of the Axis Aligned Bounding Box.
+ */ 2 4 this 3 622  1 n 1 565  
+19 0 0 7 295 609 0 0 45 /**
+ * Returns the nth vertex of the OBB.
+ */ 2 4 this 3 622  1 n 1 565  
+20 0 0 6 296 565 0 0 65 /**
+ * Returns 6: the number of faces of a rectangular solid.
+ */ 1 4 this 3 622  
+21 0 0 7 297 624 0 0 96 /**
+ * Creates the nth face of the rectangular solid.
+ *
+ * @deprecated Same as get_plane().
+ */ 2 4 this 3 622  1 n 1 565  
+22 0 0 7 298 624 0 0 57 /**
+ * Returns the nth face of the rectangular solid.
+ */ 2 4 this 3 622  1 n 1 565  
+23 0 0 4 299 611 0 0 10 /**
+ *
+ */ 2 4 this 3 621  6 center 1 620  
+24 0 0 4 299 611 0 0 10 /**
+ *
+ */ 4 4 this 3 621  1 x 1 555  1 y 1 555  1 z 1 555  
+25 0 0 6 300 620 0 0 10 /**
+ *
+ */ 1 4 this 3 622  
+26 0 0 6 301 620 0 0 10 /**
+ *
+ */ 1 4 this 3 622  
+27 0 0 6 302 620 0 0 10 /**
+ *
+ */ 1 4 this 3 622  
+28 0 0 7 303 625 0 0 10 /**
+ *
+ */ 1 4 this 3 622  
+29 0 0 7 304 619 0 0 0 0 
+30 0 0 7 306 626 314 0 10 /**
+ *
+ */ 3 1 a 1 620  2 db 1 620  6 radius 1 555  
+31 0 0 7 306 626 314 0 10 /**
+ *
+ */ 7 2 ax 1 555  2 ay 1 555  2 az 1 555  2 bx 1 555  2 by 1 555  2 bz 1 555  6 radius 1 555  
+32 0 0 4 307 611 0 0 10 /**
+ *
+ */ 2 4 this 3 626  1 a 1 620  
+33 0 0 4 307 611 0 0 10 /**
+ *
+ */ 4 4 this 3 626  1 x 1 555  1 y 1 555  1 z 1 555  
+34 0 0 6 308 620 0 0 10 /**
+ *
+ */ 1 4 this 3 627  
+35 0 0 4 309 611 0 0 10 /**
+ *
+ */ 2 4 this 3 626  1 b 1 620  
+36 0 0 4 309 611 0 0 10 /**
+ *
+ */ 4 4 this 3 626  1 x 1 555  1 y 1 555  1 z 1 555  
+37 0 0 6 310 620 0 0 10 /**
+ *
+ */ 1 4 this 3 627  
+38 0 0 4 311 611 0 0 10 /**
+ *
+ */ 2 4 this 3 626  6 radius 1 555  
+39 0 0 6 312 555 0 0 10 /**
+ *
+ */ 1 4 this 3 627  
+40 0 0 7 313 619 0 0 0 0 
+41 0 0 7 315 629 317 0 0 0 
+42 0 0 15 315 629 317 0 0 1 6 param0 0 630  
+43 0 0 7 316 619 0 0 0 0 
+44 0 0 7 318 576 0 0 10 /**
+ *
+ */ 1 4 name 1 632  
+45 0 0 4 319 611 0 0 98 /**
+ * Simultaneously sets both the "from" and "into" CollideMask values to the
+ * same thing.
+ */ 2 4 this 3 576  4 mask 1 633  
+46 0 0 4 320 611 0 0 222 /**
+ * Sets the "from" CollideMask.  In order for a collision to be detected from
+ * this object into another object, the intersection of this object's "from"
+ * mask and the other object's "into" mask must be nonzero.
+ */ 2 4 this 3 576  4 mask 1 633  
+47 0 0 4 321 611 0 0 222 /**
+ * Sets the "into" CollideMask.  In order for a collision to be detected from
+ * another object into this object, the intersection of the other object's
+ * "from" mask and this object's "into" mask must be nonzero.
+ */ 2 4 this 3 576  4 mask 1 633  
+48 0 0 7 322 633 0 0 233 /**
+ * Returns the current "from" CollideMask.  In order for a collision to be
+ * detected from this object into another object, the intersection of this
+ * object's "from" mask and the other object's "into" mask must be nonzero.
+ */ 1 4 this 3 634  
+49 0 0 7 323 633 0 0 233 /**
+ * Returns the current "into" CollideMask.  In order for a collision to be
+ * detected from another object into this object, the intersection of the
+ * other object's "from" mask and this object's "into" mask must be nonzero.
+ */ 1 4 this 3 634  
+50 0 0 4 324 611 0 0 44 /**
+ * Removes all solids from the node.
+ */ 1 4 this 3 576  
+51 0 0 6 325 636 0 0 10 /**
+ *
+ */ 1 4 this 3 634  
+52 0 0 7 326 574 0 0 10 /**
+ *
+ */ 2 4 this 3 634  1 n 1 636  
+53 0 0 7 327 610 0 0 10 /**
+ *
+ */ 2 4 this 3 576  1 n 1 636  
+54 0 0 4 328 611 0 0 55 /**
+ * Replaces the solid with the indicated index.
+ */ 3 4 this 3 576  1 n 1 636  5 solid 1 610  
+55 0 0 4 329 611 0 0 77 /**
+ * Inserts the indicated solid to the node at the indicated position.
+ */ 3 4 this 3 576  1 n 1 636  5 solid 1 574  
+56 0 0 4 330 611 0 0 110 /**
+ * Removes the solid with the indicated index.  This will shift all subsequent
+ * indices down by one.
+ */ 2 4 this 3 576  1 n 1 636  
+57 0 0 6 331 636 0 0 121 /**
+ * Adds the indicated solid to the node.  Returns the index of the new solid
+ * within the node's list of solids.
+ */ 2 4 this 3 576  5 solid 1 574  
+58 0 0 6 332 565 0 0 114 /**
+ * Returns the collider_sort value that has been set for this particular node.
+ * See set_collider_sort().
+ */ 1 4 this 3 634  
+59 0 0 4 333 611 0 0 594 /**
+ * Sets a particular collider_sort value on this node.  This controls the
+ * order in which colliders (that is, "from nodes") are grouped together for
+ * the collision traversal.
+ *
+ * If there are 32 or fewer colliders added to any particular
+ * CollisionTraverser, then this value has no meaning.  It is only useful if
+ * there are many colliders, which may force the CollisionTraverser to make
+ * multiple passes through the data; in that case, it may be a useful
+ * optimization to group colliders that have similar bounding volumes together
+ * (by giving them similar sort values).
+ */ 2 4 this 3 576  4 sort 1 565  
+60 0 0 7 334 633 0 0 80 /**
+ * Returns the default into_collide_mask assigned to new CollisionNodes.
+ */ 0 
+61 0 0 7 337 619 0 0 0 0 
+62 0 0 15 338 640 339 0 0 1 6 param0 0 638  
+63 0 0 7 338 640 339 0 10 /**
+ *
+ */ 1 4 name 5 632  
+64 0 0 4 340 611 0 0 370 /**
+ * Sets the flag that indicates whether the prev_transform stored on a node
+ * (as updated via set_fluid_pos(), etc.) is respected to calculate
+ * collisions.  If this is true, certain types of collision tests will be
+ * enhanced by the information about objects in motion.  If this is false,
+ * objects are always considered to be static.  The default is false.
+ */ 2 4 this 3 640  4 flag 1 548  
+65 0 0 6 341 548 0 0 162 /**
+ * Returns the flag that indicates whether the prev_transform stored on a node
+ * is respected to calculate collisions.  See set_respect_prev_transform().
+ */ 1 4 this 3 638  
+66 0 0 4 342 611 0 0 437 /**
+ * Adds a new CollisionNode, representing an object that will be tested for
+ * collisions into other objects, along with the handler that will serve each
+ * detected collision.  Each CollisionNode may be served by only one handler
+ * at a time, but a given handler may serve many CollisionNodes.
+ *
+ * The handler that serves a particular node may be changed from time to time
+ * by calling add_collider() again on the same node.
+ */ 3 4 this 3 640  8 collider 1 641  7 handler 1 629  
+67 0 0 6 343 548 0 0 263 /**
+ * Removes the collider (and its associated handler) from the set of
+ * CollisionNodes that will be tested each frame for collisions into other
+ * objects.  Returns true if the definition was found and removed, false if it
+ * wasn't present to begin with.
+ */ 2 4 this 3 640  8 collider 1 641  
+68 0 0 6 344 548 0 0 145 /**
+ * Returns true if the indicated node is current in the set of nodes that will
+ * be tested each frame for collisions into other objects.
+ */ 2 4 this 3 638  8 collider 1 641  
+69 0 0 6 345 565 0 0 108 /**
+ * Returns the number of CollisionNodes that have been added to the traverser
+ * via add_collider().
+ */ 1 4 this 3 638  
+70 0 0 7 346 642 0 0 100 /**
+ * Returns the nth CollisionNode that has been added to the traverser via
+ * add_collider().
+ */ 2 4 this 3 638  1 n 1 565  
+71 0 0 7 347 629 317 0 169 /**
+ * Returns the handler that is currently assigned to serve the indicated
+ * collision node, or NULL if the node is not on the traverser's set of active
+ * nodes.
+ */ 2 4 this 3 638  8 collider 1 641  
+72 0 0 4 348 611 0 0 90 /**
+ * Completely empties the set of collision nodes and their associated
+ * handlers.
+ */ 1 4 this 3 640  
+73 0 0 4 349 611 0 0 247 /**
+ * Perform the traversal. Begins at the indicated root and detects all
+ * collisions with any of its collider objects against nodes at or below the
+ * indicated root, calling the appropriate CollisionHandler for each detected
+ * collision.
+ */ 2 4 this 3 640  4 root 1 641  
+74 0 0 4 350 611 0 0 10 /**
+ *
+ */ 2 4 this 3 638  3 out 1 616  
+75 0 0 4 351 611 0 0 10 /**
+ *
+ */ 3 4 this 3 638  3 out 1 616  12 indent_level 1 565  
+76 0 0 38 352 566 0 0 0 1 4 this 3 638  
+77 0 0 36 353 611 0 0 0 2 4 this 3 640  5 state 1 566  
+78 0 0 7 354 619 0 0 0 0 
+79 0 0 7 355 574 0 0 104 /**
+ * Returns the CollisionSolid pointer for the particular solid that triggered
+ * this collision.
+ */ 1 4 this 3 643  
+80 0 0 6 356 548 0 0 288 /**
+ * Returns true if the "into" solid is, in fact, a CollisionSolid, and its
+ * pointer is known (in which case get_into() may be called to retrieve it).
+ * If this returns false, the collision was detected into a GeomNode, and
+ * there is no CollisionSolid pointer to be retrieved.
+ */ 1 4 this 3 643  
+81 0 0 7 357 574 0 0 243 /**
+ * Returns the CollisionSolid pointer for the particular solid was collided
+ * into.  This pointer might be NULL if the collision was into a piece of
+ * visible geometry, instead of a normal CollisionSolid collision; see
+ * has_into().
+ */ 1 4 this 3 643  
+82 0 0 7 358 576 0 0 182 /**
+ * Returns the node that contains the CollisionSolid that triggered this
+ * collision.  This will be a node that has been added to a CollisionTraverser
+ * via add_collider().
+ */ 1 4 this 3 643  
+83 0 0 7 359 577 0 0 254 /**
+ * Returns the node that contains the CollisionSolid that was collided into.
+ * This returns a PandaNode pointer instead of something more specific,
+ * because it might be either a CollisionNode or a GeomNode.
+ *
+ * Also see get_into_node_path().
+ */ 1 4 this 3 643  
+84 0 0 7 360 642 0 0 224 /**
+ * Returns the NodePath that represents the CollisionNode that contains the
+ * CollisionSolid that triggered this collision.  This will be a NodePath that
+ * has been added to a CollisionTraverser via add_collider().
+ */ 1 4 this 3 643  
+85 0 0 7 361 642 0 0 338 /**
+ * Returns the NodePath that represents the specific CollisionNode or GeomNode
+ * instance that was collided into.  This is the same node returned by
+ * get_into_node(), represented as a NodePath; however, it may be more useful
+ * because the NodePath can resolve the particular instance of the node, if
+ * there is more than one.
+ */ 1 4 this 3 643  
+86 0 0 4 362 611 0 0 82 /**
+ * Sets a time value for this collision relative to other CollisionEntries
+ */ 2 4 this 3 597  1 t 1 555  
+87 0 0 6 363 555 0 0 83 /**
+ * returns time value for this collision relative to other CollisionEntries
+ */ 1 4 this 3 643  
+88 0 0 6 364 548 0 0 188 /**
+ * returns true if this represents an actual collision as opposed to a
+ * potential collision, needed for iterative collision resolution where path
+ * of collider changes mid-frame
+ */ 1 4 this 3 643  
+89 0 0 4 365 611 0 0 45 /**
+ * prepare for another collision test
+ */ 1 4 this 3 597  
+90 0 0 6 366 548 0 0 203 /**
+ * Returns true if the collision was detected by a CollisionTraverser whose
+ * respect_prev_transform flag was set true, meaning we should consider motion
+ * significant in evaluating collisions.
+ */ 1 4 this 3 643  
+91 0 0 4 367 611 0 0 178 /**
+ * Stores the point, on the surface of the "into" object, at which a collision
+ * is detected.
+ *
+ * This point is specified in the coordinate space of the "into" object.
+ */ 2 4 this 3 597  5 point 1 620  
+92 0 0 4 368 611 0 0 171 /**
+ * Stores the surface normal of the "into" object at the point of the
+ * intersection.
+ *
+ * This normal is specified in the coordinate space of the "into" object.
+ */ 2 4 this 3 597  6 normal 1 612  
+93 0 0 4 369 611 0 0 352 /**
+ * Stores the point, within the interior of the "into" object, which
+ * represents the depth to which the "from" object has penetrated.  This can
+ * also be described as the intersection point on the surface of the "from"
+ * object (which is inside the "into" object).
+ *
+ * This point is specified in the coordinate space of the "into" object.
+ */ 2 4 this 3 597  5 point 1 620  
+94 0 0 6 370 548 0 0 174 /**
+ * Returns true if the surface point has been specified, false otherwise.  See
+ * get_surface_point().  Some types of collisions may not compute the surface
+ * point.
+ */ 1 4 this 3 643  
+95 0 0 6 371 548 0 0 176 /**
+ * Returns true if the surface normal has been specified, false otherwise.
+ * See get_surface_normal().  Some types of collisions may not compute the
+ * surface normal.
+ */ 1 4 this 3 643  
+96 0 0 6 372 548 0 0 176 /**
+ * Returns true if the interior point has been specified, false otherwise.
+ * See get_interior_point().  Some types of collisions may not compute the
+ * interior point.
+ */ 1 4 this 3 643  
+97 0 0 4 373 611 0 0 190 /**
+ * Stores the position of the "from" object at the instant at which the
+ * collision is first detected.
+ *
+ * This position is specified in the coordinate space of the "into" object.
+ */ 2 4 this 3 597  3 pos 1 620  
+98 0 0 4 374 611 0 0 154 /**
+ * Stores the surface normal of the "into" object at the contact pos.
+ *
+ * This normal is specified in the coordinate space of the "into" object.
+ */ 2 4 this 3 597  6 normal 1 612  
+99 0 0 6 375 548 0 0 172 /**
+ * Returns true if the contact position has been specified, false otherwise.
+ * See get_contact_pos().  Some types of collisions may not compute the
+ * contact pos.
+ */ 1 4 this 3 643  
+100 0 0 6 376 548 0 0 176 /**
+ * Returns true if the contact normal has been specified, false otherwise.
+ * See get_contact_normal().  Some types of collisions may not compute the
+ * contact normal.
+ */ 1 4 this 3 643  
+101 0 0 7 377 609 0 0 330 /**
+ * Returns the point, on the surface of the "into" object, at which a
+ * collision is detected.  This can be thought of as the first point of
+ * intersection.  However the contact point is the actual first point of
+ * intersection.
+ *
+ * The point will be converted into whichever coordinate space the caller
+ * specifies.
+ */ 2 4 this 3 643  5 space 1 641  
+102 0 0 7 378 625 0 0 200 /**
+ * Returns the surface normal of the "into" object at the point at which a
+ * collision is detected.
+ *
+ * The normal will be converted into whichever coordinate space the caller
+ * specifies.
+ */ 2 4 this 3 643  5 space 1 641  
+103 0 0 7 379 609 0 0 431 /**
+ * Returns the point, within the interior of the "into" object, which
+ * represents the depth to which the "from" object has penetrated.  This can
+ * also be described as the intersection point on the surface of the "from"
+ * object (which is inside the "into" object).  It can be thought of as the
+ * deepest point of intersection.
+ *
+ * The point will be converted into whichever coordinate space the caller
+ * specifies.
+ */ 2 4 this 3 643  5 space 1 641  
+104 0 0 6 380 548 0 0 244 /**
+ * Simultaneously transforms the surface point, surface normal, and interior
+ * point of the collision into the indicated coordinate space.
+ *
+ * Returns true if all three properties are available, or false if any one of
+ * them is not.
+ */ 5 4 this 3 643  5 space 1 641  13 surface_point 1 609  14 surface_normal 1 625  14 interior_point 1 609  
+105 0 0 7 381 609 0 0 200 /**
+ * Returns the position of the "from" object at the instant that a collision
+ * is first detected.
+ *
+ * The position will be converted into whichever coordinate space the caller
+ * specifies.
+ */ 2 4 this 3 643  5 space 1 641  
+106 0 0 7 382 625 0 0 175 /**
+ * Returns the surface normal of the "into" object at the contact position.
+ *
+ * The normal will be converted into whichever coordinate space the caller
+ * specifies.
+ */ 2 4 this 3 643  5 space 1 641  
+107 0 0 6 383 548 0 0 230 /**
+ * Simultaneously transforms the contact position and contact normal of the
+ * collision into the indicated coordinate space.
+ *
+ * Returns true if all three properties are available, or false if any one of
+ * them is not.
+ */ 4 4 this 3 643  5 space 1 641  11 contact_pos 1 609  14 contact_normal 1 625  
+108 0 0 4 384 611 0 0 10 /**
+ *
+ */ 2 4 this 3 643  3 out 1 616  
+109 0 0 4 385 611 0 0 10 /**
+ *
+ */ 3 4 this 3 643  3 out 1 616  12 indent_level 5 565  
+110 0 0 7 386 619 0 0 0 0 
+111 0 0 15 388 647 395 0 10 /**
+ *
+ */ 1 4 copy 1 645  
+112 0 0 23 388 647 395 0 10 /**
+ *
+ */ 1 5 plane 1 648  
+113 0 0 7 389 625 0 0 10 /**
+ *
+ */ 1 4 this 3 645  
+114 0 0 6 390 555 0 0 10 /**
+ *
+ */ 2 4 this 3 645  5 point 1 620  
+115 0 0 4 391 611 0 0 10 /**
+ *
+ */ 2 4 this 3 647  5 plane 1 648  
+116 0 0 6 392 648 0 0 10 /**
+ *
+ */ 1 4 this 3 645  
+117 0 0 4 393 611 0 0 57 /**
+ * Convenience method to flip the plane in-place.
+ */ 1 4 this 3 647  
+118 0 0 7 394 619 0 0 0 0 
+119 0 0 7 396 649 404 0 144 /**
+ * This is only for the convenience of CollisionPolygon.  Normally, you should
+ * not attempt to create an uninitialized CollisionPlane.
+ */ 0 
+120 0 0 4 397 611 0 0 47 /**
+ * store away a vertex to index against
+ */ 2 4 this 3 649  4 vert 1 620  
+121 0 0 4 398 611 0 0 42 /**
+ * store a triangle for processing
+ */ 4 4 this 3 649  6 pointA 1 650  6 pointB 1 650  6 pointC 1 650  
+122 0 0 6 399 650 0 0 0 1 4 this 3 651  
+123 0 0 6 400 620 0 0 0 2 4 this 3 651  5 index 1 650  
+124 0 0 6 401 650 0 0 0 1 4 this 3 651  
+125 0 0 7 402 653 0 0 0 2 4 this 3 651  5 index 1 650  
+126 0 0 7 403 619 0 0 0 0 
+127 0 0 23 405 658 413 0 10 /**
+ *
+ */ 3 1 a 1 654  1 b 1 654  1 c 1 654  
+128 0 0 23 405 658 413 0 10 /**
+ *
+ */ 4 1 a 1 654  1 b 1 654  1 c 1 654  1 d 1 654  
+129 0 0 6 406 636 0 0 66 /**
+ * Returns the number of vertices of the CollisionPolygon.
+ */ 1 4 this 3 659  
+130 0 0 7 407 609 0 0 82 /**
+ * Returns the nth vertex of the CollisionPolygon, expressed in 3-D space.
+ */ 2 4 this 3 659  1 n 1 636  
+131 0 0 6 408 548 0 0 167 /**
+ * Verifies that the indicated set of points will define a valid
+ * CollisionPolygon: that is, at least three non-collinear points, with no
+ * points repeated.
+ */ 3 1 a 1 620  1 b 1 620  1 c 1 620  
+132 0 0 6 408 548 0 0 167 /**
+ * Verifies that the indicated set of points will define a valid
+ * CollisionPolygon: that is, at least three non-collinear points, with no
+ * points repeated.
+ */ 4 1 a 1 620  1 b 1 620  1 c 1 620  1 d 1 620  
+133 0 0 38 408 548 0 0 0 1 6 points 1 566  
+134 0 0 6 409 548 0 0 122 /**
+ * Returns true if the CollisionPolygon is valid (that is, it has at least
+ * three vertices), or false otherwise.
+ */ 1 4 this 3 659  
+135 0 0 6 410 548 0 0 106 /**
+ * Returns true if the CollisionPolygon appears to be concave, or false if it
+ * is safely convex.
+ */ 1 4 this 3 659  
+136 0 0 36 411 611 0 0 0 2 4 this 3 658  6 points 1 566  
+137 0 0 7 412 619 0 0 0 0 
+138 0 0 7 414 661 437 0 168 /**
+ * The default CollisionHandlerEvent will throw no events.  Its pattern
+ * strings must first be set via a call to add_in_pattern() and/or
+ * add_out_pattern().
+ */ 0 
+139 0 0 15 414 661 437 0 0 1 6 param0 0 662  
+140 0 0 4 415 611 0 0 80 /**
+ * Removes all of the previously-added in patterns.  See add_in_pattern.
+ */ 1 4 this 3 661  
+141 0 0 4 416 611 0 0 1586 /**
+ * Adds a pattern string to the list of events that will be generated in
+ * response to a collision.  The pattern string describes how the event name
+ * will be composed.  It is a string that may contain any of the following:
+ *
+ * %fn  - the name of the "from" object's node %in  - the name of the "into"
+ * object's node %fs  - 't' if "from" is tangible, 'i' if intangible %is  -
+ * 't' if "into" is tangible, 'i' if intangible %ig  - 'c' if the collision is
+ * into a CollisionNode, 'g' if it is a geom.
+ *
+ * %(tag)fh - generate event only if "from" node has the indicated net tag.
+ * %(tag)fx - generate event only if "from" node does not have the indicated
+ * net tag.  %(tag)ih - generate event only if "into" node has the indicated
+ * net tag.  %(tag)ix - generate event only if "into" node does not have the
+ * indicated net tag.  %(tag)ft - the indicated net tag value of the "from"
+ * node.  %(tag)it - the indicated net tag value of the "into" node.
+ *
+ * Parentheses in the above are literal and should be included in the actual
+ * pattern.
+ *
+ * The event name will be based on the in_pattern string specified here, with
+ * all occurrences of the above strings replaced with the corresponding
+ * values.
+ *
+ * In general, the in_pattern event is thrown on the first detection of a
+ * collision between two particular nodes.  In subsequent passes, as long as a
+ * collision between those two nodes continues to be detected each frame, the
+ * again_pattern is thrown.  The first frame in which the collision is no
+ * longer detected, the out_pattern event is thrown.
+ */ 2 4 this 3 661  10 in_pattern 1 632  
+142 0 0 4 417 611 0 0 189 /**
+ * This method is deprecated; it completely replaces all the in patterns that
+ * have previously been set with the indicated pattern.
+ *
+ * @deprecated Use add_in_pattern() instead.
+ */ 2 4 this 3 661  10 in_pattern 1 632  
+143 0 0 6 418 565 0 0 73 /**
+ * Returns the number of in pattern strings that have been added.
+ */ 1 4 this 3 662  
+144 0 0 6 419 632 0 0 145 /**
+ * Returns the nth pattern string that indicates how the event names are
+ * generated for each collision detected.  See add_in_pattern().
+ */ 2 4 this 3 662  1 n 1 565  
+145 0 0 4 420 611 0 0 83 /**
+ * Removes all of the previously-added in patterns.  See add_again_pattern.
+ */ 1 4 this 3 661  
+146 0 0 4 421 611 0 0 649 /**
+ * Adds the pattern string that indicates how the event names are generated
+ * when a collision between two particular nodes is *still* detected.  This
+ * event is thrown each consecutive time a collision between two particular
+ * nodes is detected, starting with the second time.
+ *
+ * In general, the in_pattern event is thrown on the first detection of a
+ * collision between two particular nodes.  In subsequent passes, as long as a
+ * collision between those two nodes continues to be detected each frame, the
+ * again_pattern is thrown.  The first frame in which the collision is no
+ * longer detected, the out_pattern event is thrown.
+ */ 2 4 this 3 661  13 again_pattern 1 632  
+147 0 0 4 422 611 0 0 192 /**
+ * This method is deprecated; it completely replaces all the in patterns that
+ * have previously been set with the indicated pattern.
+ *
+ * @deprecated Use add_again_pattern() instead.
+ */ 2 4 this 3 661  13 again_pattern 1 632  
+148 0 0 6 423 565 0 0 73 /**
+ * Returns the number of in pattern strings that have been added.
+ */ 1 4 this 3 662  
+149 0 0 6 424 632 0 0 148 /**
+ * Returns the nth pattern string that indicates how the event names are
+ * generated for each collision detected.  See add_again_pattern().
+ */ 2 4 this 3 662  1 n 1 565  
+150 0 0 4 425 611 0 0 81 /**
+ * Removes all of the previously-added in patterns.  See add_out_pattern.
+ */ 1 4 this 3 661  
+151 0 0 4 426 611 0 0 518 /**
+ * Adds the pattern string that indicates how the event names are generated
+ * when a collision between two particular nodes is *no longer* detected.
+ *
+ * In general, the in_pattern event is thrown on the first detection of a
+ * collision between two particular nodes.  In subsequent passes, as long as a
+ * collision between those two nodes continues to be detected each frame, the
+ * again_pattern is thrown.  The first frame in which the collision is no
+ * longer detected, the out_pattern event is thrown.
+ */ 2 4 this 3 661  11 out_pattern 1 632  
+152 0 0 4 427 611 0 0 190 /**
+ * This method is deprecated; it completely replaces all the in patterns that
+ * have previously been set with the indicated pattern.
+ *
+ * @deprecated Use add_out_pattern() instead.
+ */ 2 4 this 3 661  11 out_pattern 1 632  
+153 0 0 6 428 565 0 0 73 /**
+ * Returns the number of in pattern strings that have been added.
+ */ 1 4 this 3 662  
+154 0 0 6 429 632 0 0 146 /**
+ * Returns the nth pattern string that indicates how the event names are
+ * generated for each collision detected.  See add_out_pattern().
+ */ 2 4 this 3 662  1 n 1 565  
+155 0 0 4 430 611 0 0 541 /**
+ * Empties the list of elements that all colliders are known to be colliding
+ * with.  No "out" events will be thrown; if the same collision is detected
+ * next frame, a new "in" event will be thrown for each collision.
+ *
+ * This can be called each frame to defeat the persistent "in" event
+ * mechanism, which prevents the same "in" event from being thrown repeatedly.
+ * However, also see add_again_pattern(), which can be used to set the event
+ * that is thrown when a collision is detected for two or more consecutive
+ * frames.
+ */ 1 4 this 3 661  
+156 0 0 4 431 611 0 0 58 /**
+ * Same as clear() except "out" events are thrown.
+ */ 1 4 this 3 661  
+157 0 0 38 432 566 0 0 46 // These help implement Python pickle support. 1 4 this 3 662  
+158 0 0 36 433 611 0 0 0 2 4 this 3 661  4 data 1 664  
+159 0 0 4 434 611 0 0 63 /**
+ * Serializes this object, to implement pickle support.
+ */ 2 4 this 3 662  11 destination 1 666  
+160 0 0 4 435 611 0 0 104 /**
+ * Restores the object state from the given datagram, previously obtained using
+ * __getstate__.
+ */ 2 4 this 3 661  6 source 1 668  
+161 0 0 7 436 619 0 0 0 0 
+162 0 0 4 438 611 0 0 180 /**
+ * Adds a new collider to the list with a NodePath that will be updated with
+ * the collider's new position, or updates the existing collider with a new
+ * NodePath object.
+ */ 3 4 this 3 670  8 collider 1 641  6 target 1 641  
+163 0 0 4 438 611 0 0 374 /**
+ * Adds a new collider to the list with a NodePath that will be updated with
+ * the collider's new position, or updates the existing collider with a new
+ * NodePath object.
+ *
+ * The indicated DriveInterface will also be updated with the target's new
+ * transform each frame.  This method should be used when the target is
+ * directly controlled by a DriveInterface.
+ */ 4 4 this 3 670  8 collider 1 641  6 target 1 641  15 drive_interface 1 671  
+164 0 0 6 439 548 0 0 92 /**
+ * Removes the collider from the list of colliders that this handler knows
+ * about.
+ */ 2 4 this 3 670  8 collider 1 641  
+165 0 0 6 440 548 0 0 94 /**
+ * Returns true if the handler knows about the indicated collider, false
+ * otherwise.
+ */ 2 4 this 3 673  8 collider 1 641  
+166 0 0 4 441 611 0 0 77 /**
+ * Completely empties the list of colliders this handler knows about.
+ */ 1 4 this 3 670  
+167 0 0 4 442 611 0 0 269 /**
+ * Specifies an arbitrary NodePath that the handler is always considered to be
+ * facing.  It does not detect collisions with surfaces that appear to be
+ * facing away from this NodePath.  This works best when the collision
+ * surfaces in question are polygons.
+ */ 2 4 this 3 670  6 center 1 641  
+168 0 0 4 443 611 0 0 64 /**
+ * Clears the center NodePath specified with set_center.
+ */ 1 4 this 3 670  
+169 0 0 6 444 641 0 0 114 /**
+ * Returns the NodePath specified with set_center, or the empty NodePath if
+ * nothing has been specified.
+ */ 1 4 this 3 673  
+170 0 0 6 445 548 0 0 95 /**
+ * Returns true if a NodePath has been specified with set_center(), false
+ * otherwise.
+ */ 1 4 this 3 673  
+171 0 0 6 446 548 0 0 255 /**
+ * Did the handler make any contacts with anything on the last collision pass?
+ * Depending on how your world is setup, this can be used to tell if the
+ * handler is out of the world (i.e.  out of bounds). That is the original use
+ * of this call.
+ */ 1 4 this 3 673  
+172 0 0 38 447 566 0 0 0 1 4 this 3 673  
+173 0 0 36 448 611 0 0 0 3 4 this 3 670  4 data 1 664  9 nodepaths 1 566  
+174 0 0 7 449 619 0 0 0 0 
+175 0 0 7 450 675 437 0 10 /**
+ *
+ */ 0 
+176 0 0 4 451 611 0 0 166 /**
+ * Sets the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */ 2 4 this 3 675  6 offset 1 555  
+177 0 0 6 452 555 0 0 169 /**
+ * Returns the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */ 1 4 this 3 676  
+178 0 0 4 453 611 0 0 82 /**
+ * Sets the reach to add to (or subtract from) the highest collision point
+ */ 2 4 this 3 675  5 reach 1 555  
+179 0 0 6 454 555 0 0 85 /**
+ * Returns the reach to add to (or subtract from) the highest collision point
+ */ 1 4 this 3 676  
+180 0 0 4 455 611 0 0 199 /**
+ * Sets the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  Set this to zero to allow
+ * it to instantly teleport any distance.
+ */ 2 4 this 3 675  7 max_vel 1 555  
+181 0 0 6 456 555 0 0 160 /**
+ * Retrieves the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  See set_max_velocity().
+ */ 1 4 this 3 676  
+182 0 0 7 457 619 0 0 0 0 
+183 0 0 7 458 678 437 0 10 /**
+ *
+ */ 0 
+184 0 0 4 459 611 0 0 10 /**
+ *
+ */ 2 4 this 3 678  4 flag 1 548  
+185 0 0 6 460 548 0 0 10 /**
+ *
+ */ 1 4 this 3 679  
+186 0 0 7 461 619 0 0 0 0 
+187 0 0 7 462 681 464 0 10 /**
+ *
+ */ 0 
+188 0 0 7 463 619 0 0 0 0 
+189 0 0 7 465 682 437 0 10 /**
+ *
+ */ 0 
+190 0 0 4 466 611 0 0 166 /**
+ * Sets the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */ 2 4 this 3 682  6 offset 1 555  
+191 0 0 6 467 555 0 0 169 /**
+ * Returns the linear offset to add to (or subtract from) the highest detected
+ * collision point to determine the actual height at which to set the
+ * collider.
+ */ 1 4 this 3 683  
+192 0 0 4 468 611 0 0 82 /**
+ * Sets the reach to add to (or subtract from) the highest collision point
+ */ 2 4 this 3 682  5 reach 1 555  
+193 0 0 6 469 555 0 0 85 /**
+ * Returns the reach to add to (or subtract from) the highest collision point
+ */ 1 4 this 3 683  
+194 0 0 6 470 555 0 0 202 /**
+ * Return the height of the object from the ground.
+ *
+ * The object might not necessarily be at rest.  Use is_on_ground() if you
+ * want to know whether the object is on the ground and at rest.
+ */ 1 4 this 3 683  
+195 0 0 6 471 548 0 0 33 /**
+ * Is the object at rest?
+ */ 1 4 this 3 683  
+196 0 0 6 472 555 0 0 283 /**
+ * How hard did the object hit the ground.  This value is set on impact with
+ * the ground.  You may want to watch (poll) on is_on_ground() and when that is
+ * true, call get_impact_velocity(). Normally I avoid polling, but we are
+ * calling is_on_ground() frequently anyway.
+ */ 1 4 this 3 683  
+197 0 0 6 473 612 0 0 10 /**
+ *
+ */ 1 4 this 3 683  
+198 0 0 4 474 611 0 0 184 /**
+ * Adds the sepcified amount to the current velocity.  This is mostly here
+ * allow this common operation to be faster for scripting, but it's also more
+ * concise even in cpp.
+ */ 2 4 this 3 682  8 velocity 1 555  
+199 0 0 4 475 611 0 0 46 /**
+ * Sets the current vertical velocity.
+ */ 2 4 this 3 682  8 velocity 1 555  
+200 0 0 6 476 555 0 0 354 /**
+ * Gets the current vertical velocity.
+ *
+ * Generally, negative values mean the object is in free fall; while postive
+ * values mean the object has vertical thrust.
+ *
+ * A zero value does not necessarily mean the object on the ground, it may
+ * also be weightless and/or at the apex of its jump.
+ *
+ * See Also: is_on_ground() and get_gravity()
+ */ 1 4 this 3 683  
+201 0 0 4 477 611 0 0 56 /**
+ * Sets the linear gravity force (always plumb).
+ */ 2 4 this 3 682  7 gravity 1 555  
+202 0 0 6 478 555 0 0 56 /**
+ * Gets the linear gravity force (always plumb).
+ */ 1 4 this 3 683  
+203 0 0 4 479 611 0 0 199 /**
+ * Sets the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  Set this to zero to allow
+ * it to instantly teleport any distance.
+ */ 2 4 this 3 682  7 max_vel 1 555  
+204 0 0 6 480 555 0 0 160 /**
+ * Retrieves the maximum speed at which the object will be allowed to descend
+ * towards a floor below it, in units per second.  See set_max_velocity().
+ */ 1 4 this 3 683  
+205 0 0 4 481 611 0 0 229 /**
+ * Enables old behavior required by Toontown (Sellbot Factory lava room is
+ * good test case, lava and conveyor belt specifically). Behavior is to throw
+ * enter/exit events only for floor that the toon is in contact with
+ */ 2 4 this 3 682  11 legacy_mode 1 548  
+206 0 0 6 482 548 0 0 49 /**
+ * returns true if legacy mode is enabled
+ */ 1 4 this 3 683  
+207 0 0 7 483 619 0 0 0 0 
+208 0 0 7 484 685 486 0 168 /**
+ * The default CollisionHandlerEvent will throw no events.  Its pattern
+ * strings must first be set via a call to add_in_pattern() and/or
+ * add_out_pattern().
+ */ 0 
+209 0 0 15 484 685 486 0 0 1 6 param0 0 686  
+210 0 0 7 485 619 0 0 0 0 
+211 0 0 7 487 688 496 0 10 /**
+ *
+ */ 0 
+212 0 0 15 487 688 496 0 0 1 6 param0 0 689  
+213 0 0 4 488 611 0 0 257 /**
+ * Sorts all the detected collisions front-to-back by
+ * from_intersection_point() so that those intersection points closest to the
+ * collider's origin (e.g., the center of the CollisionSphere, or the point_a
+ * of a CollisionSegment) appear first.
+ */ 1 4 this 3 688  
+214 0 0 4 489 611 0 0 50 /**
+ * Removes all the entries from the queue.
+ */ 1 4 this 3 688  
+215 0 0 6 490 565 0 0 69 /**
+ * Returns the number of CollisionEntries detected last pass.
+ */ 1 4 this 3 689  
+216 0 0 7 491 597 387 0 61 /**
+ * Returns the nth CollisionEntry detected last pass.
+ */ 2 4 this 3 689  1 n 1 565  
+217 0 0 4 492 611 0 0 10 /**
+ *
+ */ 2 4 this 3 689  3 out 1 616  
+218 0 0 4 493 611 0 0 10 /**
+ *
+ */ 3 4 this 3 689  3 out 1 616  12 indent_level 5 565  
+219 0 0 38 494 566 0 0 0 1 4 this 3 689  
+220 0 0 7 495 619 0 0 0 0 
+221 0 0 23 497 693 0 0 10 /**
+ *
+ */ 3 11 heightfield 1 691  10 max_height 1 555  16 num_subdivisions 1 565  
+222 0 0 7 498 691 0 0 10 /**
+ *
+ */ 1 4 this 3 693  
+223 0 0 4 499 611 0 0 10 /**
+ *
+ */ 2 4 this 3 693  11 heightfield 1 691  
+224 0 0 6 500 555 0 0 10 /**
+ *
+ */ 1 4 this 3 693  
+225 0 0 4 501 611 0 0 10 /**
+ *
+ */ 2 4 this 3 693  10 max_height 1 555  
+226 0 0 6 502 565 0 0 10 /**
+ *
+ */ 1 4 this 3 693  
+227 0 0 4 503 611 0 0 325 /**
+ * Sets the number of quadtree subdivisions and modifies
+ * the quadtree accordingly. This should be called when a
+ * user wants to modify the number of quadtree subdivisions
+ * or from a constructor to initialize the quadtree.
+ *
+ * If the number of subdivisions is too high, it will
+ * automatically be decremented.
+ */ 2 4 this 3 693  16 num_subdivisions 1 565  
+228 0 0 6 504 555 0 0 10 /**
+ *
+ */ 3 4 this 3 694  1 x 1 565  1 y 1 565  
+229 0 0 7 505 619 0 0 0 0 
+230 0 0 7 506 696 512 0 10 /**
+ *
+ */ 2 6 center 1 620  6 radius 1 555  
+231 0 0 7 506 696 512 0 10 /**
+ *
+ */ 4 2 cx 1 555  2 cy 1 555  2 cz 1 555  6 radius 1 555  
+232 0 0 4 507 611 0 0 10 /**
+ *
+ */ 2 4 this 3 696  6 center 1 620  
+233 0 0 4 507 611 0 0 10 /**
+ *
+ */ 4 4 this 3 696  1 x 1 555  1 y 1 555  1 z 1 555  
+234 0 0 6 508 620 0 0 10 /**
+ *
+ */ 1 4 this 3 697  
+235 0 0 4 509 611 0 0 10 /**
+ *
+ */ 2 4 this 3 696  6 radius 1 555  
+236 0 0 6 510 555 0 0 10 /**
+ *
+ */ 1 4 this 3 697  
+237 0 0 7 511 619 0 0 0 0 
+238 0 0 7 513 699 515 0 10 /**
+ *
+ */ 2 6 center 1 620  6 radius 1 555  
+239 0 0 7 513 699 515 0 10 /**
+ *
+ */ 4 2 cx 1 555  2 cy 1 555  2 cz 1 555  6 radius 1 555  
+240 0 0 7 514 619 0 0 0 0 
+241 0 0 7 516 700 523 0 183 /**
+ * Creates an invalid ray.  This isn't terribly useful; it's expected that the
+ * user will subsequently adjust the ray via set_origin()/set_direction() or
+ * set_from_lens().
+ */ 0 
+242 0 0 7 516 700 523 0 10 /**
+ *
+ */ 2 6 origin 1 620  9 direction 1 612  
+243 0 0 7 516 700 523 0 10 /**
+ *
+ */ 6 2 ox 1 555  2 oy 1 555  2 oz 1 555  2 dx 1 555  2 dy 1 555  2 dz 1 555  
+244 0 0 4 517 611 0 0 10 /**
+ *
+ */ 2 4 this 3 700  6 origin 1 620  
+245 0 0 4 517 611 0 0 10 /**
+ *
+ */ 4 4 this 3 700  1 x 1 555  1 y 1 555  1 z 1 555  
+246 0 0 6 518 620 0 0 10 /**
+ *
+ */ 1 4 this 3 701  
+247 0 0 4 519 611 0 0 10 /**
+ *
+ */ 2 4 this 3 700  9 direction 1 612  
+248 0 0 4 519 611 0 0 10 /**
+ *
+ */ 4 4 this 3 700  1 x 1 555  1 y 1 555  1 z 1 555  
+249 0 0 6 520 612 0 0 10 /**
+ *
+ */ 1 4 this 3 701  
+250 0 0 6 521 548 0 0 327 /**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionRay so that it begins at the LensNode's near plane and extends to
+ * infinity, making it suitable for picking objects from the screen given a
+ * camera and a mouse location.
+ *
+ * Returns true if the point was acceptable, false otherwise.
+ */ 3 4 this 3 700  6 camera 1 703  5 point 1 705  
+251 0 0 6 521 548 0 0 262 /**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionRay so that it begins at the LensNode's near plane and extends to
+ * infinity, making it suitable for picking objects from the screen given a
+ * camera and a mouse location.
+ */ 4 4 this 3 700  6 camera 1 703  2 px 1 555  2 py 1 555  
+252 0 0 7 522 619 0 0 0 0 
+253 0 0 7 524 709 526 0 185 /**
+ * Creates an invalid line.  This isn't terribly useful; it's expected that
+ * the user will subsequently adjust the line via set_origin()/set_direction()
+ * or set_from_lens().
+ */ 0 
+254 0 0 7 524 709 526 0 10 /**
+ *
+ */ 2 6 origin 1 620  9 direction 1 612  
+255 0 0 7 524 709 526 0 10 /**
+ *
+ */ 6 2 ox 1 555  2 oy 1 555  2 oz 1 555  2 dx 1 555  2 dy 1 555  2 dz 1 555  
+256 0 0 7 525 619 0 0 0 0 
+257 0 0 7 527 710 535 0 39 /**
+ * Creates an invalid parabola.
+ */ 0 
+258 0 0 7 527 710 535 0 110 /**
+ * Creates a parabola with the endpoints between t1 and t2 in the parametric
+ * space of the parabola.
+ */ 3 8 parabola 1 711  2 t1 1 555  2 t2 1 555  
+259 0 0 4 528 611 0 0 57 /**
+ * Replaces the parabola specified by this solid.
+ */ 2 4 this 3 710  8 parabola 1 711  
+260 0 0 6 529 711 0 0 56 /**
+ * Returns the parabola specified by this solid.
+ */ 1 4 this 3 712  
+261 0 0 4 530 611 0 0 54 /**
+ * Changes the starting point on the parabola.
+ */ 2 4 this 3 710  2 t1 1 555  
+262 0 0 6 531 555 0 0 54 /**
+ * Returns the starting point on the parabola.
+ */ 1 4 this 3 712  
+263 0 0 4 532 611 0 0 52 /**
+ * Changes the ending point on the parabola.
+ */ 2 4 this 3 710  2 t2 1 555  
+264 0 0 6 533 555 0 0 52 /**
+ * Returns the ending point on the parabola.
+ */ 1 4 this 3 712  
+265 0 0 7 534 619 0 0 0 0 
+266 0 0 7 536 714 543 0 191 /**
+ * Creates an invalid segment.  This isn't terribly useful; it's expected that
+ * the user will subsequently adjust the segment via
+ * set_origin()/set_direction() or set_from_lens().
+ */ 0 
+267 0 0 7 536 714 543 0 10 /**
+ *
+ */ 2 1 a 1 620  2 db 1 620  
+268 0 0 7 536 714 543 0 10 /**
+ *
+ */ 6 2 ax 1 555  2 ay 1 555  2 az 1 555  2 bx 1 555  2 by 1 555  2 bz 1 555  
+269 0 0 4 537 611 0 0 10 /**
+ *
+ */ 2 4 this 3 714  1 a 1 620  
+270 0 0 4 537 611 0 0 10 /**
+ *
+ */ 4 4 this 3 714  1 x 1 555  1 y 1 555  1 z 1 555  
+271 0 0 6 538 620 0 0 10 /**
+ *
+ */ 1 4 this 3 715  
+272 0 0 4 539 611 0 0 10 /**
+ *
+ */ 2 4 this 3 714  1 b 1 620  
+273 0 0 4 539 611 0 0 10 /**
+ *
+ */ 4 4 this 3 714  1 x 1 555  1 y 1 555  1 z 1 555  
+274 0 0 6 540 620 0 0 10 /**
+ *
+ */ 1 4 this 3 715  
+275 0 0 6 541 548 0 0 336 /**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionSegment so that it begins at the LensNode's near plane and extends
+ * to the far plane, making it suitable for picking objects from the screen
+ * given a camera and a mouse location.
+ *
+ * Returns true if the point was acceptable, false otherwise.
+ */ 3 4 this 3 714  6 camera 1 703  5 point 1 705  
+276 0 0 6 541 548 0 0 271 /**
+ * Accepts a LensNode and a 2-d point in the range [-1,1].  Sets the
+ * CollisionSegment so that it begins at the LensNode's near plane and extends
+ * to the far plane, making it suitable for picking objects from the screen
+ * given a camera and a mouse location.
+ */ 4 4 this 3 714  6 camera 1 703  2 px 1 555  2 py 1 555  
+277 0 0 7 542 619 0 0 0 0 
+173
+544 14 CollisionSolid 0 75777 14 CollisionSolid 14 CollisionSolid 0 0 0 0 0 4 717 718 719 720 14 278 279 280 281 282 283 284 285 286 287 288 289 290 291 0 0 1 0 545 0 0 0 0 457
+/**
+ * The abstract base class for all things that can collide with other things
+ * in the world, and all the things they can collide with (except geometry).
+ *
+ * This class and its derivatives really work very similarly to the way
+ * BoundingVolume and all of its derivatives work.  There's a different
+ * subclass for each basic shape of solid, and double-dispatch function calls
+ * handle the subset of the N*N intersection tests that we care about.
+ */
+
+545 17 CopyOnWriteObject 0 2048 17 CopyOnWriteObject 17 CopyOnWriteObject 0 0 0 0 0 0 0 0 0 0 0 0 169
+/**
+ * This base class provides basic reference counting, but also can be used
+ * with a CopyOnWritePointer to provide get_read_pointer() and
+ * get_write_pointer().
+ */
+
+546 7 LPoint3 0 2105344 7 LPoint3 7 LPoint3 0 0 547 0 0 0 0 0 0 0 0 0 0
+
+547 8 LPoint3f 0 2048 8 LPoint3f 8 LPoint3f 0 0 0 0 0 0 0 0 0 0 0 0 337
+/**
+ * This is a three-component point in space (as opposed to a three-component
+ * vector, which represents a direction and a distance).  Some of the methods
+ * are slightly different between LPoint3 and LVector3; in particular,
+ * subtraction of two points yields a vector, while addition of a vector and a
+ * point yields a point.
+ */
+
+548 4 bool 0 8194 4 bool 4 bool 0 4 0 0 0 0 0 0 0 0 0 0 0
+
+549 32 ConstPointerTo< BoundingVolume > 0 2048 32 ConstPointerTo< BoundingVolume > 32 ConstPointerTo< BoundingVolume > 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+550 12 CollisionBox 0 141313 12 CollisionBox 12 CollisionBox 0 0 0 1 292 305 4 721 722 723 724 12 293 294 295 296 297 298 299 300 301 302 303 304 0 0 1 0 544 0 0 0 0 47
+/**
+ * A cuboid collision volume or object.
+ */
+
+551 13 LPoint3 const 0 8832 13 LPoint3 const 13 LPoint3 const 0 0 546 0 0 0 0 0 0 0 0 0 0
+
+552 8 LVector3 0 2105344 8 LVector3 8 LVector3 0 0 553 0 0 0 0 0 0 0 0 0 0
+
+553 9 LVector3f 0 2048 9 LVector3f 9 LVector3f 0 0 0 0 0 0 0 0 0 0 0 0 338
+/**
+ * This is a three-component vector distance (as opposed to a three-component
+ * point, which represents a particular point in space).  Some of the methods
+ * are slightly different between LPoint3 and LVector3; in particular,
+ * subtraction of two points yields a vector, while addition of a vector and a
+ * point yields a point.
+ */
+
+554 16 CollisionCapsule 0 141313 16 CollisionCapsule 16 CollisionCapsule 0 0 0 1 306 314 3 725 726 727 7 307 308 309 310 311 312 313 0 0 1 0 544 0 0 0 0 201
+/**
+ * This implements a solid consisting of a cylinder with hemispherical endcaps,
+ * also known as a capsule or a spherocylinder.
+ *
+ * This shape was previously erroneously called CollisionTube.
+ */
+
+555 11 PN_stdfloat 0 2105344 11 PN_stdfloat 11 PN_stdfloat 0 0 556 0 0 0 0 0 0 0 0 0 0
+
+556 5 float 0 8194 5 float 5 float 0 2 0 0 0 0 0 0 0 0 0 0 0
+
+557 16 CollisionHandler 0 141313 16 CollisionHandler 16 CollisionHandler 0 0 0 1 315 317 0 1 316 0 0 1 0 558 0 0 0 0 262
+/**
+ * The abstract interface to a number of classes that decide what to do when a
+ * collision is detected.  One of these must be assigned to the
+ * CollisionTraverser that is processing collisions in order to specify how to
+ * dispatch detected collisions.
+ */
+
+558 19 TypedReferenceCount 0 2048 19 TypedReferenceCount 19 TypedReferenceCount 0 0 0 0 0 0 0 0 0 0 0 0 410
+/**
+ * A base class for things which need to inherit from both TypedObject and
+ * from ReferenceCount.  It's convenient to define this intermediate base
+ * class instead of multiply inheriting from the two classes each time they
+ * are needed, so that we can sensibly pass around pointers to things which
+ * are both TypedObjects and ReferenceCounters.
+ *
+ * See also TypedObject for detailed instructions.
+ */
+
+559 13 CollisionNode 0 75777 13 CollisionNode 13 CollisionNode 0 0 0 1 318 0 6 728 729 730 731 732 733 17 319 320 321 322 323 324 325 326 327 328 329 330 331 332 333 334 337 1 778 0 1 0 560 0 0 0 0 261
+/**
+ * A node in the scene graph that can hold any number of CollisionSolids.
+ * This may either represent a bit of static geometry in the scene that things
+ * will collide with, or an animated object twirling around in the world and
+ * running into things.
+ */
+
+560 9 PandaNode 0 2048 9 PandaNode 9 PandaNode 0 0 0 0 0 0 0 0 0 0 0 0 175
+/**
+ * A basic node of the scene graph or data graph.  This is the base class of
+ * all specialized nodes, and also serves as a generic node with no special
+ * properties.
+ */
+
+561 11 CollideMask 0 2105344 11 CollideMask 11 CollideMask 0 0 562 0 0 0 0 0 0 0 0 0 0
+
+562 9 BitMask32 0 2105344 9 BitMask32 9 BitMask32 0 0 563 0 0 0 0 0 0 0 0 0 0
+
+563 23 BitMask< uint32_t, 32 > 0 2048 23 BitMask< uint32_t, 32 > 23 BitMask< uint32_t, 32 > 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+564 32 ConstPointerTo< CollisionSolid > 0 2048 32 ConstPointerTo< CollisionSolid > 32 ConstPointerTo< CollisionSolid > 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+565 3 int 0 8194 3 int 3 int 0 1 0 0 0 0 0 0 0 0 0 0 0
+
+566 10 PyObject * 0 8576 10 PyObject * 10 PyObject * 0 0 567 0 0 0 0 0 0 0 0 0 0
+
+567 8 PyObject 0 2105344 8 PyObject 8 PyObject 0 0 568 0 0 0 0 0 0 0 0 0 0
+
+568 7 _object 0 1024 7 _object 7 _object 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+569 18 CollisionTraverser 0 26625 18 CollisionTraverser 18 CollisionTraverser 0 0 0 1 338 339 2 734 735 15 340 341 342 343 344 345 346 347 348 349 350 351 352 353 354 1 779 0 1 0 570 0 0 0 0 467
+/**
+ * This class manages the traversal through the scene graph to detect
+ * collisions.  It holds ownership of a number of collider objects, each of
+ * which is a CollisionNode and an associated CollisionHandler.
+ *
+ * When traverse() is called, it begins at the indicated root and detects all
+ * collisions with any of its collider objects against nodes at or below the
+ * indicated root, calling the appropriate CollisionHandler for each detected
+ * collision.
+ */
+
+570 7 Namable 0 2048 7 Namable 7 Namable 0 0 0 0 0 0 0 0 0 0 0 0 125
+/**
+ * A base class for all things which can have a name.  The name is either
+ * empty or nonempty, but it is never NULL.
+ */
+
+571 8 NodePath 0 2048 8 NodePath 8 NodePath 0 0 0 0 0 0 0 0 0 0 0 0 762
+/**
+ * NodePath is the fundamental system for disambiguating instances, and also
+ * provides a higher-level interface for manipulating the scene graph.
+ *
+ * A NodePath is a list of connected nodes from the root of the graph to any
+ * sub-node.  Each NodePath therefore uniquely describes one instance of a
+ * node.
+ *
+ * NodePaths themselves are lightweight objects that may easily be copied and
+ * passed by value.  Their data is stored as a series of NodePathComponents
+ * that are stored on the nodes.  Holding a NodePath will keep a reference
+ * count to all the nodes in the path.  However, if any node in the path is
+ * removed or reparented (perhaps through a different NodePath), the NodePath
+ * will automatically be updated to reflect the changes.
+ */
+
+572 14 CollisionEntry 0 141313 14 CollisionEntry 14 CollisionEntry 0 0 0 0 387 8 736 737 738 739 740 741 742 743 32 355 356 357 358 359 360 361 362 363 364 365 366 367 368 369 370 371 372 373 374 375 376 377 378 379 380 381 382 383 384 385 386 0 0 1 0 573 0 0 0 0 437
+/**
+ * Defines a single collision event.  One of these is created for each
+ * collision detected by a CollisionTraverser, to be dealt with by the
+ * CollisionHandler.
+ *
+ * A CollisionEntry provides slots for a number of data values (such as
+ * intersection point and normal) that might or might not be known for each
+ * collision.  It is up to the handler to determine what information is known
+ * and to do the right thing with it.
+ */
+
+573 27 TypedWritableReferenceCount 0 2048 27 TypedWritableReferenceCount 27 TypedWritableReferenceCount 0 0 0 0 0 0 0 0 0 0 0 0 414
+/**
+ * A base class for things which need to inherit from both TypedWritable and
+ * from ReferenceCount.  It's convenient to define this intermediate base
+ * class instead of multiply inheriting from the two classes each time they
+ * are needed, so that we can sensibly pass around pointers to things which
+ * are both TypedWritables and ReferenceCounters.
+ *
+ * See also TypedObject for detailed instructions.
+ */
+
+574 22 CollisionSolid const * 0 8576 22 CollisionSolid const * 22 CollisionSolid const * 0 0 575 0 0 0 0 0 0 0 0 0 0
+
+575 20 CollisionSolid const 0 8832 20 CollisionSolid const 20 CollisionSolid const 0 0 544 0 0 0 0 0 0 0 0 0 0
+
+576 15 CollisionNode * 0 8576 15 CollisionNode * 15 CollisionNode * 0 0 559 0 0 0 0 0 0 0 0 0 0
+
+577 11 PandaNode * 0 8576 11 PandaNode * 11 PandaNode * 0 0 560 0 0 0 0 0 0 0 0 0 0
+
+578 14 CollisionPlane 0 141313 14 CollisionPlane 14 CollisionPlane 0 0 0 1 388 395 2 744 745 6 389 390 391 392 393 394 0 0 1 0 544 0 0 0 0 10
+/**
+ *
+ */
+
+579 12 LPlane const 0 8832 12 LPlane const 12 LPlane const 0 0 580 0 0 0 0 0 0 0 0 0 0
+
+580 6 LPlane 0 2105344 6 LPlane 6 LPlane 0 0 581 0 0 0 0 0 0 0 0 0 0
+
+581 7 LPlanef 0 2048 7 LPlanef 7 LPlanef 0 0 0 0 0 0 0 0 0 0 0 0 120
+/**
+ * An abstract mathematical description of a plane.  A plane is defined by the
+ * equation Ax + By + Cz + D = 0.
+ */
+
+582 18 CollisionFloorMesh 0 141313 18 CollisionFloorMesh 18 CollisionFloorMesh 0 0 0 1 396 404 2 746 747 7 397 398 399 400 401 402 403 2 780 781 0 1 0 544 0 0 0 0 124
+/**
+ * This object represents a solid made entirely of triangles, which will only
+ * be tested again z axis aligned rays
+ */
+
+583 8 LPoint3i 0 2048 8 LPoint3i 8 LPoint3i 0 0 0 0 0 0 0 0 0 0 0 0 337
+/**
+ * This is a three-component point in space (as opposed to a three-component
+ * vector, which represents a direction and a distance).  Some of the methods
+ * are slightly different between LPoint3 and LVector3; in particular,
+ * subtraction of two points yields a vector, while addition of a vector and a
+ * point yields a point.
+ */
+
+584 16 CollisionPolygon 0 141313 16 CollisionPolygon 16 CollisionPolygon 0 0 0 1 405 413 3 748 749 750 7 406 407 408 409 410 411 412 1 782 0 1 0 578 0 0 0 0 10
+/**
+ *
+ */
+
+585 21 CollisionHandlerEvent 0 141313 21 CollisionHandlerEvent 21 CollisionHandlerEvent 0 0 0 1 414 437 3 751 752 753 22 415 416 417 418 419 420 421 422 423 424 425 426 427 428 429 430 431 432 433 434 435 436 3 783 784 785 0 1 0 557 0 0 0 0 296
+/**
+ * A specialized kind of CollisionHandler that throws an event for each
+ * collision detected.  The event thrown may be based on the name of the
+ * moving object or the struck object, or both.  The first parameter of the
+ * event will be a pointer to the CollisionEntry that triggered it.
+ */
+
+586 6 string 0 2105344 11 std::string 11 std::string 0 0 587 0 0 0 0 0 0 0 0 0 0
+
+587 20 basic_string< char > 0 2048 25 std::basic_string< char > 25 std::basic_string< char > 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+588 24 CollisionHandlerPhysical 0 75777 24 CollisionHandlerPhysical 24 CollisionHandlerPhysical 0 0 0 0 437 1 754 12 438 439 440 441 442 443 444 445 446 447 448 449 0 0 1 0 585 0 0 0 0 209
+/**
+ * The abstract base class for a number of CollisionHandlers that have some
+ * physical effect on their moving bodies: they need to update the nodes'
+ * positions based on the effects of the collision.
+ */
+
+589 14 NodePath const 0 8832 14 NodePath const 14 NodePath const 0 0 571 0 0 0 0 0 0 0 0 0 0
+
+590 21 CollisionHandlerFloor 0 75777 21 CollisionHandlerFloor 21 CollisionHandlerFloor 0 0 0 1 450 437 3 755 756 757 7 451 452 453 454 455 456 457 0 0 1 0 588 0 0 0 0 294
+/**
+ * A specialized kind of CollisionHandler that sets the Z height of the
+ * collider to a fixed linear offset from the highest detected collision point
+ * each frame.  It's intended to implement walking around on a floor of
+ * varying height by casting a ray down from the avatar's head.
+ */
+
+591 22 CollisionHandlerPusher 0 75777 22 CollisionHandlerPusher 22 CollisionHandlerPusher 0 0 0 1 458 437 1 758 3 459 460 461 0 0 1 0 588 0 0 0 0 197
+/**
+ * A specialized kind of CollisionHandler that simply pushes back on things
+ * that attempt to move into solid walls.  This is the simplest kind of "real-
+ * world" collisions you can have.
+ */
+
+592 27 CollisionHandlerFluidPusher 0 141313 27 CollisionHandlerFluidPusher 27 CollisionHandlerFluidPusher 0 0 0 1 462 464 0 1 463 0 0 1 0 591 0 0 0 0 139
+/**
+ * A CollisionHandlerPusher that makes use of timing and spatial information
+ * from fluid collisions to improve collision response
+ */
+
+593 23 CollisionHandlerGravity 0 75777 23 CollisionHandlerGravity 23 CollisionHandlerGravity 0 0 0 1 465 437 9 759 760 761 762 763 764 765 766 767 18 466 467 468 469 470 471 472 473 474 475 476 477 478 479 480 481 482 483 0 0 1 0 588 0 0 0 0 294
+/**
+ * A specialized kind of CollisionHandler that sets the Z height of the
+ * collider to a fixed linear offset from the highest detected collision point
+ * each frame.  It's intended to implement walking around on a floor of
+ * varying height by casting a ray down from the avatar's head.
+ */
+
+594 14 LVector3 const 0 8832 14 LVector3 const 14 LVector3 const 0 0 552 0 0 0 0 0 0 0 0 0 0
+
+595 28 CollisionHandlerHighestEvent 0 141313 28 CollisionHandlerHighestEvent 28 CollisionHandlerHighestEvent 0 0 0 1 484 486 0 1 485 0 0 1 0 585 0 0 0 0 296
+/**
+ * A specialized kind of CollisionHandler that throws an event for each
+ * collision detected.  The event thrown may be based on the name of the
+ * moving object or the struck object, or both.  The first parameter of the
+ * event will be a pointer to the CollisionEntry that triggered it.
+ */
+
+596 21 CollisionHandlerQueue 0 141313 21 CollisionHandlerQueue 21 CollisionHandlerQueue 0 0 0 1 487 496 1 768 8 488 489 490 491 492 493 494 495 1 786 0 1 0 557 0 0 0 0 313
+/**
+ * A special kind of CollisionHandler that does nothing except remember the
+ * CollisionEntries detected the last pass.  This set of CollisionEntries may
+ * then be queried by the calling function.  It's primarily useful when a
+ * simple intersection test is being made, e.g.  for picking from the window.
+ */
+
+597 16 CollisionEntry * 0 8576 16 CollisionEntry * 16 CollisionEntry * 0 0 572 0 0 0 0 0 0 0 0 0 0
+
+598 20 CollisionHeightfield 0 75777 20 CollisionHeightfield 20 CollisionHeightfield 0 0 0 1 497 0 0 8 498 499 500 501 502 503 504 505 0 0 1 0 544 0 0 0 0 306
+/*
+ * CollisionHeightfield efficiently deals with collisions on uneven
+ * terrain given a heightfield image. A quad tree is implemented to
+ * significantly reduce the amount of triangles tested. Each quad
+ * tree node represents a sub-rectangle of the heightfield image
+ * and thus a box in 3D space.
+ * */
+
+599 15 CollisionSphere 0 141313 15 CollisionSphere 15 CollisionSphere 0 0 0 1 506 512 2 769 770 5 507 508 509 510 511 0 0 1 0 544 0 0 0 0 50
+/**
+ * A spherical collision volume or object.
+ */
+
+600 18 CollisionInvSphere 0 141313 18 CollisionInvSphere 18 CollisionInvSphere 0 0 0 1 513 515 0 1 514 0 0 1 0 599 0 0 0 0 272
+/**
+ * An inverted sphere: this is a sphere whose collision surface is the inside
+ * surface of the sphere.  Everything outside the sphere is solid matter;
+ * everything inside is empty space.  Useful for constraining objects to
+ * remain within a spherical perimeter.
+ */
+
+601 12 CollisionRay 0 141313 12 CollisionRay 12 CollisionRay 0 0 0 1 516 523 2 771 772 6 517 518 519 520 521 522 0 0 1 0 544 0 0 0 0 220
+/**
+ * An infinite ray, with a specific origin and direction.  It begins at its
+ * origin and continues in one direction to infinity, and it has no radius.
+ * Useful for picking from a window, or for gravity effects.
+ */
+
+602 13 CollisionLine 0 141313 13 CollisionLine 13 CollisionLine 0 0 0 1 524 526 0 1 525 0 0 1 0 601 0 0 0 0 131
+/**
+ * An infinite line, similar to a CollisionRay, except that it extends in both
+ * directions.  It is, however, directional.
+ */
+
+603 17 CollisionParabola 0 141313 17 CollisionParabola 17 CollisionParabola 0 0 0 1 527 535 3 773 774 775 7 528 529 530 531 532 533 534 0 0 1 0 544 0 0 0 0 308
+/**
+ * This defines a parabolic arc, or subset of an arc, similar to the path of a
+ * projectile or falling object.  It is finite, having a specific beginning
+ * and end, but it is infinitely thin.
+ *
+ * Think of it as a wire bending from point t1 to point t2 along the path of a
+ * pre-defined parabola.
+ */
+
+604 15 LParabola const 0 8832 15 LParabola const 15 LParabola const 0 0 605 0 0 0 0 0 0 0 0 0 0
+
+605 9 LParabola 0 2105344 9 LParabola 9 LParabola 0 0 606 0 0 0 0 0 0 0 0 0 0
+
+606 10 LParabolaf 0 2048 10 LParabolaf 10 LParabolaf 0 0 0 0 0 0 0 0 0 0 0 0 200
+/**
+ * An abstract mathematical description of a parabola, particularly useful for
+ * describing arcs of projectiles.
+ *
+ * The parabolic equation, given parametrically here, is P = At^2 + Bt + C.
+ */
+
+607 16 CollisionSegment 0 141313 16 CollisionSegment 16 CollisionSegment 0 0 0 1 536 543 2 776 777 6 537 538 539 540 541 542 0 0 1 0 544 0 0 0 0 371
+/**
+ * A finite line segment, with two specific endpoints but no thickness.  It's
+ * similar to a CollisionRay, except it does not continue to infinity.
+ *
+ * It does have an ordering, from point A to point B. If more than a single
+ * point of the segment is intersecting a solid, the reported intersection
+ * point is generally the closest on the segment to point A.
+ */
+
+608 13 CollisionTube 0 2105345 13 CollisionTube 13 CollisionTube 0 0 554 0 0 0 0 0 0 0 0 0 0
+
+609 9 LPoint3 * 0 8576 9 LPoint3 * 9 LPoint3 * 0 0 546 0 0 0 0 0 0 0 0 0 0
+
+610 16 CollisionSolid * 0 8576 16 CollisionSolid * 16 CollisionSolid * 0 0 544 0 0 0 0 0 0 0 0 0 0
+
+611 4 void 0 8194 4 void 4 void 0 6 0 0 0 0 0 0 0 0 0 0 0
+
+612 16 LVector3 const * 0 8576 16 LVector3 const * 16 LVector3 const * 0 0 594 0 0 0 0 0 0 0 0 0 0
+
+613 20 BoundingVolume const 0 8832 20 BoundingVolume const 20 BoundingVolume const 0 0 614 0 0 0 0 0 0 0 0 0 0
+
+614 14 BoundingVolume 0 2048 14 BoundingVolume 14 BoundingVolume 0 0 0 0 0 0 0 0 0 0 0 0 330
+/**
+ * This is an abstract class for any volume in any sense which can be said to
+ * define the locality of reference of a node in a graph, along with all of
+ * its descendants.  It is not necessarily a geometric volume (although see
+ * GeometricBoundingVolume); this is simply an abstract interface for bounds
+ * of any sort.
+ */
+
+615 22 BoundingVolume const * 0 8576 22 BoundingVolume const * 22 BoundingVolume const * 0 0 613 0 0 0 0 0 0 0 0 0 0
+
+616 9 ostream * 0 8576 14 std::ostream * 14 std::ostream * 0 0 617 0 0 0 0 0 0 0 0 0 0
+
+617 7 ostream 0 2048 12 std::ostream 12 std::ostream 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+618 10 TypeHandle 0 16779264 10 TypeHandle 10 TypeHandle 0 0 0 0 0 0 0 0 0 0 0 0 732
+/**
+ * TypeHandle is the identifier used to differentiate C++ class types.  Any
+ * C++ classes that inherit from some base class, and must be differentiated
+ * at run time, should store a static TypeHandle object that can be queried
+ * through a static member function named get_class_type().  Most of the time,
+ * it is also desirable to inherit from TypedObject, which provides some
+ * virtual functions to return the TypeHandle for a particular instance.
+ *
+ * At its essence, a TypeHandle is simply a unique identifier that is assigned
+ * by the TypeRegistry.  The TypeRegistry stores a tree of TypeHandles, so
+ * that ancestry of a particular type may be queried, and the type name may be
+ * retrieved for run-time display.
+ */
+
+619 12 TypeHandle * 0 8576 12 TypeHandle * 12 TypeHandle * 0 0 618 0 0 0 0 0 0 0 0 0 0
+
+620 15 LPoint3 const * 0 8576 15 LPoint3 const * 15 LPoint3 const * 0 0 551 0 0 0 0 0 0 0 0 0 0
+
+621 14 CollisionBox * 0 8576 14 CollisionBox * 14 CollisionBox * 0 0 550 0 0 0 0 0 0 0 0 0 0
+
+622 20 CollisionBox const * 0 8576 20 CollisionBox const * 20 CollisionBox const * 0 0 623 0 0 0 0 0 0 0 0 0 0
+
+623 18 CollisionBox const 0 8832 18 CollisionBox const 18 CollisionBox const 0 0 550 0 0 0 0 0 0 0 0 0 0
+
+624 8 LPlane * 0 8576 8 LPlane * 8 LPlane * 0 0 580 0 0 0 0 0 0 0 0 0 0
+
+625 10 LVector3 * 0 8576 10 LVector3 * 10 LVector3 * 0 0 552 0 0 0 0 0 0 0 0 0 0
+
+626 18 CollisionCapsule * 0 8576 18 CollisionCapsule * 18 CollisionCapsule * 0 0 554 0 0 0 0 0 0 0 0 0 0
+
+627 24 CollisionCapsule const * 0 8576 24 CollisionCapsule const * 24 CollisionCapsule const * 0 0 628 0 0 0 0 0 0 0 0 0 0
+
+628 22 CollisionCapsule const 0 8832 22 CollisionCapsule const 22 CollisionCapsule const 0 0 554 0 0 0 0 0 0 0 0 0 0
+
+629 18 CollisionHandler * 0 8576 18 CollisionHandler * 18 CollisionHandler * 0 0 557 0 0 0 0 0 0 0 0 0 0
+
+630 24 CollisionHandler const * 0 8576 24 CollisionHandler const * 24 CollisionHandler const * 0 0 631 0 0 0 0 0 0 0 0 0 0
+
+631 22 CollisionHandler const 0 8832 22 CollisionHandler const 22 CollisionHandler const 0 0 557 0 0 0 0 0 0 0 0 0 0
+
+632 13 atomic string 0 2 13 atomic string 13 atomic string 0 7 0 0 0 0 0 0 0 0 0 0 0
+
+633 13 CollideMask * 0 8576 13 CollideMask * 13 CollideMask * 0 0 561 0 0 0 0 0 0 0 0 0 0
+
+634 21 CollisionNode const * 0 8576 21 CollisionNode const * 21 CollisionNode const * 0 0 635 0 0 0 0 0 0 0 0 0 0
+
+635 19 CollisionNode const 0 8832 19 CollisionNode const 19 CollisionNode const 0 0 559 0 0 0 0 0 0 0 0 0 0
+
+636 6 size_t 0 2105344 11 std::size_t 11 std::size_t 0 0 637 0 0 0 0 0 0 0 0 0 0
+
+637 17 unsigned long int 0 8214 17 unsigned long int 17 unsigned long int 0 1 0 0 0 0 0 0 0 0 0 0 0
+
+638 26 CollisionTraverser const * 0 8576 26 CollisionTraverser const * 26 CollisionTraverser const * 0 0 639 0 0 0 0 0 0 0 0 0 0
+
+639 24 CollisionTraverser const 0 8832 24 CollisionTraverser const 24 CollisionTraverser const 0 0 569 0 0 0 0 0 0 0 0 0 0
+
+640 20 CollisionTraverser * 0 8576 20 CollisionTraverser * 20 CollisionTraverser * 0 0 569 0 0 0 0 0 0 0 0 0 0
+
+641 16 NodePath const * 0 8576 16 NodePath const * 16 NodePath const * 0 0 589 0 0 0 0 0 0 0 0 0 0
+
+642 10 NodePath * 0 8576 10 NodePath * 10 NodePath * 0 0 571 0 0 0 0 0 0 0 0 0 0
+
+643 22 CollisionEntry const * 0 8576 22 CollisionEntry const * 22 CollisionEntry const * 0 0 644 0 0 0 0 0 0 0 0 0 0
+
+644 20 CollisionEntry const 0 8832 20 CollisionEntry const 20 CollisionEntry const 0 0 572 0 0 0 0 0 0 0 0 0 0
+
+645 22 CollisionPlane const * 0 8576 22 CollisionPlane const * 22 CollisionPlane const * 0 0 646 0 0 0 0 0 0 0 0 0 0
+
+646 20 CollisionPlane const 0 8832 20 CollisionPlane const 20 CollisionPlane const 0 0 578 0 0 0 0 0 0 0 0 0 0
+
+647 16 CollisionPlane * 0 8576 16 CollisionPlane * 16 CollisionPlane * 0 0 578 0 0 0 0 0 0 0 0 0 0
+
+648 14 LPlane const * 0 8576 14 LPlane const * 14 LPlane const * 0 0 579 0 0 0 0 0 0 0 0 0 0
+
+649 20 CollisionFloorMesh * 0 8576 20 CollisionFloorMesh * 20 CollisionFloorMesh * 0 0 582 0 0 0 0 0 0 0 0 0 0
+
+650 12 unsigned int 0 8198 12 unsigned int 12 unsigned int 0 1 0 0 0 0 0 0 0 0 0 0 0
+
+651 26 CollisionFloorMesh const * 0 8576 26 CollisionFloorMesh const * 26 CollisionFloorMesh const * 0 0 652 0 0 0 0 0 0 0 0 0 0
+
+652 24 CollisionFloorMesh const 0 8832 24 CollisionFloorMesh const 24 CollisionFloorMesh const 0 0 582 0 0 0 0 0 0 0 0 0 0
+
+653 10 LPoint3i * 0 8576 10 LPoint3i * 10 LPoint3i * 0 0 583 0 0 0 0 0 0 0 0 0 0
+
+654 17 LVecBase3 const * 0 8576 17 LVecBase3 const * 17 LVecBase3 const * 0 0 655 0 0 0 0 0 0 0 0 0 0
+
+655 15 LVecBase3 const 0 8832 15 LVecBase3 const 15 LVecBase3 const 0 0 656 0 0 0 0 0 0 0 0 0 0
+
+656 9 LVecBase3 0 2105344 9 LVecBase3 9 LVecBase3 0 0 657 0 0 0 0 0 0 0 0 0 0
+
+657 10 LVecBase3f 0 2048 10 LVecBase3f 10 LVecBase3f 0 0 0 0 0 0 0 0 0 0 0 0 77
+/**
+ * This is the base class for all three-component vectors and points.
+ */
+
+658 18 CollisionPolygon * 0 8576 18 CollisionPolygon * 18 CollisionPolygon * 0 0 584 0 0 0 0 0 0 0 0 0 0
+
+659 24 CollisionPolygon const * 0 8576 24 CollisionPolygon const * 24 CollisionPolygon const * 0 0 660 0 0 0 0 0 0 0 0 0 0
+
+660 22 CollisionPolygon const 0 8832 22 CollisionPolygon const 22 CollisionPolygon const 0 0 584 0 0 0 0 0 0 0 0 0 0
+
+661 23 CollisionHandlerEvent * 0 8576 23 CollisionHandlerEvent * 23 CollisionHandlerEvent * 0 0 585 0 0 0 0 0 0 0 0 0 0
+
+662 29 CollisionHandlerEvent const * 0 8576 29 CollisionHandlerEvent const * 29 CollisionHandlerEvent const * 0 0 663 0 0 0 0 0 0 0 0 0 0
+
+663 27 CollisionHandlerEvent const 0 8832 27 CollisionHandlerEvent const 27 CollisionHandlerEvent const 0 0 585 0 0 0 0 0 0 0 0 0 0
+
+664 12 vector_uchar 0 2105344 12 vector_uchar 12 vector_uchar 0 0 665 0 0 0 0 0 0 0 0 0 0
+
+665 24 pvector< unsigned char > 0 2048 24 pvector< unsigned char > 24 pvector< unsigned char > 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+666 10 Datagram * 0 8576 10 Datagram * 10 Datagram * 0 0 667 0 0 0 0 0 0 0 0 0 0
+
+667 8 Datagram 0 2048 8 Datagram 8 Datagram 0 0 0 0 0 0 0 0 0 0 0 0 565
+/**
+ * An ordered list of data elements, formatted in memory for transmission over
+ * a socket or writing to a data file.
+ *
+ * Data elements should be added one at a time, in order, to the Datagram.
+ * The nature and contents of the data elements are totally up to the user.
+ * When a Datagram has been transmitted and received, its data elements may be
+ * extracted using a DatagramIterator; it is up to the caller to know the
+ * correct type of each data element in order.
+ *
+ * A Datagram is itself headerless; it is simply a collection of data
+ * elements.
+ */
+
+668 18 DatagramIterator * 0 8576 18 DatagramIterator * 18 DatagramIterator * 0 0 669 0 0 0 0 0 0 0 0 0 0
+
+669 16 DatagramIterator 0 2048 16 DatagramIterator 16 DatagramIterator 0 0 0 0 0 0 0 0 0 0 0 0 365
+/**
+ * A class to retrieve the individual data elements previously stored in a
+ * Datagram.  Elements may be retrieved one at a time; it is up to the caller
+ * to know the correct type and order of each element.
+ *
+ * Note that it is the responsibility of the caller to ensure that the datagram
+ * object is not destructed while this DatagramIterator is in use.
+ */
+
+670 26 CollisionHandlerPhysical * 0 8576 26 CollisionHandlerPhysical * 26 CollisionHandlerPhysical * 0 0 588 0 0 0 0 0 0 0 0 0 0
+
+671 16 DriveInterface * 0 8576 16 DriveInterface * 16 DriveInterface * 0 0 672 0 0 0 0 0 0 0 0 0 0
+
+672 14 DriveInterface 0 2048 14 DriveInterface 14 DriveInterface 0 0 0 0 0 0 0 0 0 0 0 0 191
+/**
+ * This is a TFormer, similar to Trackball, that moves around a transform
+ * matrix in response to mouse input.  The basic motion is on a horizontal
+ * plane, as if driving a vehicle.
+ */
+
+673 32 CollisionHandlerPhysical const * 0 8576 32 CollisionHandlerPhysical const * 32 CollisionHandlerPhysical const * 0 0 674 0 0 0 0 0 0 0 0 0 0
+
+674 30 CollisionHandlerPhysical const 0 8832 30 CollisionHandlerPhysical const 30 CollisionHandlerPhysical const 0 0 588 0 0 0 0 0 0 0 0 0 0
+
+675 23 CollisionHandlerFloor * 0 8576 23 CollisionHandlerFloor * 23 CollisionHandlerFloor * 0 0 590 0 0 0 0 0 0 0 0 0 0
+
+676 29 CollisionHandlerFloor const * 0 8576 29 CollisionHandlerFloor const * 29 CollisionHandlerFloor const * 0 0 677 0 0 0 0 0 0 0 0 0 0
+
+677 27 CollisionHandlerFloor const 0 8832 27 CollisionHandlerFloor const 27 CollisionHandlerFloor const 0 0 590 0 0 0 0 0 0 0 0 0 0
+
+678 24 CollisionHandlerPusher * 0 8576 24 CollisionHandlerPusher * 24 CollisionHandlerPusher * 0 0 591 0 0 0 0 0 0 0 0 0 0
+
+679 30 CollisionHandlerPusher const * 0 8576 30 CollisionHandlerPusher const * 30 CollisionHandlerPusher const * 0 0 680 0 0 0 0 0 0 0 0 0 0
+
+680 28 CollisionHandlerPusher const 0 8832 28 CollisionHandlerPusher const 28 CollisionHandlerPusher const 0 0 591 0 0 0 0 0 0 0 0 0 0
+
+681 29 CollisionHandlerFluidPusher * 0 8576 29 CollisionHandlerFluidPusher * 29 CollisionHandlerFluidPusher * 0 0 592 0 0 0 0 0 0 0 0 0 0
+
+682 25 CollisionHandlerGravity * 0 8576 25 CollisionHandlerGravity * 25 CollisionHandlerGravity * 0 0 593 0 0 0 0 0 0 0 0 0 0
+
+683 31 CollisionHandlerGravity const * 0 8576 31 CollisionHandlerGravity const * 31 CollisionHandlerGravity const * 0 0 684 0 0 0 0 0 0 0 0 0 0
+
+684 29 CollisionHandlerGravity const 0 8832 29 CollisionHandlerGravity const 29 CollisionHandlerGravity const 0 0 593 0 0 0 0 0 0 0 0 0 0
+
+685 30 CollisionHandlerHighestEvent * 0 8576 30 CollisionHandlerHighestEvent * 30 CollisionHandlerHighestEvent * 0 0 595 0 0 0 0 0 0 0 0 0 0
+
+686 36 CollisionHandlerHighestEvent const * 0 8576 36 CollisionHandlerHighestEvent const * 36 CollisionHandlerHighestEvent const * 0 0 687 0 0 0 0 0 0 0 0 0 0
+
+687 34 CollisionHandlerHighestEvent const 0 8832 34 CollisionHandlerHighestEvent const 34 CollisionHandlerHighestEvent const 0 0 595 0 0 0 0 0 0 0 0 0 0
+
+688 23 CollisionHandlerQueue * 0 8576 23 CollisionHandlerQueue * 23 CollisionHandlerQueue * 0 0 596 0 0 0 0 0 0 0 0 0 0
+
+689 29 CollisionHandlerQueue const * 0 8576 29 CollisionHandlerQueue const * 29 CollisionHandlerQueue const * 0 0 690 0 0 0 0 0 0 0 0 0 0
+
+690 27 CollisionHandlerQueue const 0 8832 27 CollisionHandlerQueue const 27 CollisionHandlerQueue const 0 0 596 0 0 0 0 0 0 0 0 0 0
+
+691 10 PNMImage * 0 8576 10 PNMImage * 10 PNMImage * 0 0 692 0 0 0 0 0 0 0 0 0 0
+
+692 8 PNMImage 0 2048 8 PNMImage 8 PNMImage 0 0 0 0 0 0 0 0 0 0 0 0 1516
+/**
+ * The name of this class derives from the fact that we originally implemented
+ * it as a layer on top of the "pnm library", based on netpbm, which was built
+ * to implement pbm, pgm, and pbm files, and is the underlying support of a
+ * number of public-domain image file converters.  Nowadays we are no longer
+ * derived directly from the pnm library, mainly to allow support of C++
+ * iostreams instead of the C stdio FILE interface.
+ *
+ * Conceptually, a PNMImage is a two-dimensional array of xels, which are the
+ * PNM-defined generic pixel type.  Each xel may have a red, green, and blue
+ * component, or (if the image is grayscale) a gray component.  The image may
+ * be read in, the individual xels manipulated, and written out again, or a
+ * black image may be constructed from scratch.
+ *
+ * A PNMImage has a color space and a maxval, the combination of which defines
+ * how a floating-point linear color value is encoded as an integer value in
+ * memory.  The functions ending in _val operate on encoded colors, whereas
+ * the regular ones work with linear floating-point values.  All operations
+ * are color space correct unless otherwise specified.
+ *
+ * The image is of size XSize() by YSize() xels, numbered from top to bottom,
+ * left to right, beginning at zero.
+ *
+ * Files can be specified by filename, or by an iostream pointer.  The
+ * filename "-" refers to stdin or stdout.
+ *
+ * This class is not inherently thread-safe; use it from a single thread or
+ * protect access using a mutex.
+ */
+
+693 22 CollisionHeightfield * 0 8576 22 CollisionHeightfield * 22 CollisionHeightfield * 0 0 598 0 0 0 0 0 0 0 0 0 0
+
+694 28 CollisionHeightfield const * 0 8576 28 CollisionHeightfield const * 28 CollisionHeightfield const * 0 0 695 0 0 0 0 0 0 0 0 0 0
+
+695 26 CollisionHeightfield const 0 8832 26 CollisionHeightfield const 26 CollisionHeightfield const 0 0 598 0 0 0 0 0 0 0 0 0 0
+
+696 17 CollisionSphere * 0 8576 17 CollisionSphere * 17 CollisionSphere * 0 0 599 0 0 0 0 0 0 0 0 0 0
+
+697 23 CollisionSphere const * 0 8576 23 CollisionSphere const * 23 CollisionSphere const * 0 0 698 0 0 0 0 0 0 0 0 0 0
+
+698 21 CollisionSphere const 0 8832 21 CollisionSphere const 21 CollisionSphere const 0 0 599 0 0 0 0 0 0 0 0 0 0
+
+699 20 CollisionInvSphere * 0 8576 20 CollisionInvSphere * 20 CollisionInvSphere * 0 0 600 0 0 0 0 0 0 0 0 0 0
+
+700 14 CollisionRay * 0 8576 14 CollisionRay * 14 CollisionRay * 0 0 601 0 0 0 0 0 0 0 0 0 0
+
+701 20 CollisionRay const * 0 8576 20 CollisionRay const * 20 CollisionRay const * 0 0 702 0 0 0 0 0 0 0 0 0 0
+
+702 18 CollisionRay const 0 8832 18 CollisionRay const 18 CollisionRay const 0 0 601 0 0 0 0 0 0 0 0 0 0
+
+703 10 LensNode * 0 8576 10 LensNode * 10 LensNode * 0 0 704 0 0 0 0 0 0 0 0 0 0
+
+704 8 LensNode 0 2048 8 LensNode 8 LensNode 0 0 0 0 0 0 0 0 0 0 0 0 181
+/**
+ * A node that contains a Lens.  The most important example of this kind of
+ * node is a Camera, but other kinds of nodes also contain a lens (for
+ * instance, a Spotlight).
+ */
+
+705 15 LPoint2 const * 0 8576 15 LPoint2 const * 15 LPoint2 const * 0 0 706 0 0 0 0 0 0 0 0 0 0
+
+706 13 LPoint2 const 0 8832 13 LPoint2 const 13 LPoint2 const 0 0 707 0 0 0 0 0 0 0 0 0 0
+
+707 7 LPoint2 0 2105344 7 LPoint2 7 LPoint2 0 0 708 0 0 0 0 0 0 0 0 0 0
+
+708 8 LPoint2f 0 2048 8 LPoint2f 8 LPoint2f 0 0 0 0 0 0 0 0 0 0 0 0 50
+/**
+ * This is a two-component point in space.
+ */
+
+709 15 CollisionLine * 0 8576 15 CollisionLine * 15 CollisionLine * 0 0 602 0 0 0 0 0 0 0 0 0 0
+
+710 19 CollisionParabola * 0 8576 19 CollisionParabola * 19 CollisionParabola * 0 0 603 0 0 0 0 0 0 0 0 0 0
+
+711 17 LParabola const * 0 8576 17 LParabola const * 17 LParabola const * 0 0 604 0 0 0 0 0 0 0 0 0 0
+
+712 25 CollisionParabola const * 0 8576 25 CollisionParabola const * 25 CollisionParabola const * 0 0 713 0 0 0 0 0 0 0 0 0 0
+
+713 23 CollisionParabola const 0 8832 23 CollisionParabola const 23 CollisionParabola const 0 0 603 0 0 0 0 0 0 0 0 0 0
+
+714 18 CollisionSegment * 0 8576 18 CollisionSegment * 18 CollisionSegment * 0 0 607 0 0 0 0 0 0 0 0 0 0
+
+715 24 CollisionSegment const * 0 8576 24 CollisionSegment const * 24 CollisionSegment const * 0 0 716 0 0 0 0 0 0 0 0 0 0
+
+716 22 CollisionSegment const 0 8832 22 CollisionSegment const 22 CollisionSegment const 0 0 607 0 0 0 0 0 0 0 0 0 0
+
+0
+61
+717 16 collision_origin 0 2 546 278 0 0 0 0 0 0 0 32 CollisionSolid::collision_origin 0
+
+718 8 tangible 0 6 548 280 279 0 0 0 0 0 0 24 CollisionSolid::tangible 0
+
+719 24 respect_effective_normal 0 6 548 286 285 0 0 0 0 0 0 40 CollisionSolid::respect_effective_normal 0
+
+720 6 bounds 0 6 549 287 288 0 0 0 0 0 0 22 CollisionSolid::bounds 0
+
+721 6 center 0 2 551 300 0 0 0 0 0 0 0 20 CollisionBox::center 0
+
+722 3 min 0 2 551 301 0 0 0 0 0 0 0 17 CollisionBox::min 0
+
+723 3 max 0 2 551 302 0 0 0 0 0 0 0 17 CollisionBox::max 0
+
+724 10 dimensions 0 2 552 303 0 0 0 0 0 0 0 24 CollisionBox::dimensions 0
+
+725 7 point_a 0 6 551 308 307 0 0 0 0 0 0 25 CollisionCapsule::point_a 0
+
+726 7 point_b 0 6 551 310 309 0 0 0 0 0 0 25 CollisionCapsule::point_b 0
+
+727 6 radius 0 6 555 312 311 0 0 0 0 0 0 24 CollisionCapsule::radius 0
+
+728 17 from_collide_mask 0 6 561 322 320 0 0 0 0 0 0 32 CollisionNode::from_collide_mask 0
+
+729 17 into_collide_mask 0 6 561 323 321 0 0 0 0 0 0 32 CollisionNode::into_collide_mask 0
+
+730 6 solids 0 358 564 326 328 0 0 330 325 329 0 21 CollisionNode::solids 0
+
+731 13 collider_sort 0 6 565 332 333 0 0 0 0 0 0 28 CollisionNode::collider_sort 0
+
+732 20 default_collide_mask 0 2 561 334 0 0 0 0 0 0 0 35 CollisionNode::default_collide_mask 0
+
+733 5 owner 0 6 566 335 336 0 0 0 0 0 0 20 CollisionNode::owner 0
+
+734 22 respect_prev_transform 0 6 548 341 340 0 0 0 0 0 0 42 CollisionTraverser::respect_prev_transform 0
+
+735 9 colliders 0 66 571 346 0 0 0 0 345 0 0 29 CollisionTraverser::colliders 0
+
+736 10 from_solid 0 2 574 355 0 0 0 0 0 0 0 26 CollisionEntry::from_solid 0
+
+737 10 into_solid 0 2 574 357 0 0 0 0 0 0 0 26 CollisionEntry::into_solid 0
+
+738 9 from_node 0 2 576 358 0 0 0 0 0 0 0 25 CollisionEntry::from_node 0
+
+739 9 into_node 0 2 577 359 0 0 0 0 0 0 0 25 CollisionEntry::into_node 0
+
+740 14 from_node_path 0 2 571 360 0 0 0 0 0 0 0 30 CollisionEntry::from_node_path 0
+
+741 14 into_node_path 0 2 571 361 0 0 0 0 0 0 0 30 CollisionEntry::into_node_path 0
+
+742 1 t 0 6 555 363 362 0 0 0 0 0 0 17 CollisionEntry::t 0
+
+743 22 respect_prev_transform 0 2 548 366 0 0 0 0 0 0 0 38 CollisionEntry::respect_prev_transform 0
+
+744 6 normal 0 2 552 389 0 0 0 0 0 0 0 22 CollisionPlane::normal 0
+
+745 5 plane 0 6 579 392 391 0 0 0 0 0 0 21 CollisionPlane::plane 0
+
+746 8 vertices 0 66 551 400 0 0 0 0 399 0 0 28 CollisionFloorMesh::vertices 0
+
+747 9 triangles 0 66 583 402 0 0 0 0 401 0 0 29 CollisionFloorMesh::triangles 0
+
+748 6 points 0 66 546 407 0 0 0 0 406 0 0 24 CollisionPolygon::points 0
+
+749 5 valid 0 2 548 409 0 0 0 0 0 0 0 23 CollisionPolygon::valid 0
+
+750 7 concave 0 2 548 410 0 0 0 0 0 0 0 25 CollisionPolygon::concave 0
+
+751 11 in_patterns 0 66 586 419 0 0 0 0 418 0 0 34 CollisionHandlerEvent::in_patterns 0
+
+752 14 again_patterns 0 66 586 424 0 0 0 0 423 0 0 37 CollisionHandlerEvent::again_patterns 0
+
+753 12 out_patterns 0 66 586 429 0 0 0 0 428 0 0 35 CollisionHandlerEvent::out_patterns 0
+
+754 6 center 0 30 589 444 442 445 443 0 0 0 0 32 CollisionHandlerPhysical::center 0
+
+755 6 offset 0 6 555 452 451 0 0 0 0 0 0 29 CollisionHandlerFloor::offset 0
+
+756 5 reach 0 6 555 454 453 0 0 0 0 0 0 28 CollisionHandlerFloor::reach 0
+
+757 12 max_velocity 0 6 555 456 455 0 0 0 0 0 0 35 CollisionHandlerFloor::max_velocity 0
+
+758 10 horizontal 0 6 548 460 459 0 0 0 0 0 0 34 CollisionHandlerPusher::horizontal 0
+
+759 6 offset 0 6 555 467 466 0 0 0 0 0 0 31 CollisionHandlerGravity::offset 0
+
+760 5 reach 0 6 555 469 468 0 0 0 0 0 0 30 CollisionHandlerGravity::reach 0
+
+761 15 airborne_height 0 2 555 470 0 0 0 0 0 0 0 40 CollisionHandlerGravity::airborne_height 0
+
+762 9 on_ground 0 2 548 471 0 0 0 0 0 0 0 34 CollisionHandlerGravity::on_ground 0
+
+763 15 impact_velocity 0 2 555 472 0 0 0 0 0 0 0 40 CollisionHandlerGravity::impact_velocity 0
+
+764 14 contact_normal 0 2 594 473 0 0 0 0 0 0 0 39 CollisionHandlerGravity::contact_normal 0
+
+765 8 velocity 0 6 555 476 475 0 0 0 0 0 0 33 CollisionHandlerGravity::velocity 0
+
+766 7 gravity 0 6 555 478 477 0 0 0 0 0 0 32 CollisionHandlerGravity::gravity 0
+
+767 12 max_velocity 0 6 555 480 479 0 0 0 0 0 0 37 CollisionHandlerGravity::max_velocity 0
+
+768 7 entries 0 66 597 491 0 0 0 0 490 0 0 30 CollisionHandlerQueue::entries 0
+
+769 6 center 0 6 551 508 507 0 0 0 0 0 0 23 CollisionSphere::center 0
+
+770 6 radius 0 6 555 510 509 0 0 0 0 0 0 23 CollisionSphere::radius 0
+
+771 6 origin 0 6 551 518 517 0 0 0 0 0 0 20 CollisionRay::origin 0
+
+772 9 direction 0 6 594 520 519 0 0 0 0 0 0 23 CollisionRay::direction 0
+
+773 8 parabola 0 6 604 529 528 0 0 0 0 0 0 27 CollisionParabola::parabola 0
+
+774 2 t1 0 6 555 531 530 0 0 0 0 0 0 21 CollisionParabola::t1 0
+
+775 2 t2 0 6 555 533 532 0 0 0 0 0 0 21 CollisionParabola::t2 0
+
+776 7 point_a 0 6 551 538 537 0 0 0 0 0 0 25 CollisionSegment::point_a 0
+
+777 7 point_b 0 6 551 540 539 0 0 0 0 0 0 25 CollisionSegment::point_b 0
+
+9
+778 10 get_solids 0 325 326 25 CollisionNode::get_solids 0
+
+779 13 get_colliders 0 345 346 33 CollisionTraverser::get_colliders 0
+
+780 12 get_vertices 0 399 400 32 CollisionFloorMesh::get_vertices 0
+
+781 13 get_triangles 0 401 402 33 CollisionFloorMesh::get_triangles 0
+
+782 10 get_points 0 406 407 28 CollisionPolygon::get_points 0
+
+783 15 get_in_patterns 0 418 419 38 CollisionHandlerEvent::get_in_patterns 0
+
+784 18 get_again_patterns 0 423 424 41 CollisionHandlerEvent::get_again_patterns 0
+
+785 16 get_out_patterns 0 428 429 39 CollisionHandlerEvent::get_out_patterns 0
+
+786 11 get_entries 0 490 491 34 CollisionHandlerQueue::get_entries 0
+

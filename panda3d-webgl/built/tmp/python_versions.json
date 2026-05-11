@@ -1,0 +1,10 @@
+[
+    {
+        "version": "3.13",
+        "soabi": "cpython-313",
+        "ext_suffix": ".cpython-313-wasm32-emscripten.so",
+        "executable": "/usr/bin/python3.13",
+        "purelib": "/usr/local/lib/python3.13/dist-packages",
+        "platlib": "/usr/local/lib/python3.13/dist-packages"
+    }
+]
